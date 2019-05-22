@@ -74,17 +74,19 @@ resource "cloudflare_load_balancer_monitor" "main" {
   interval       = 60
   retries        = 5
   timeout        = 7
+  /* disables SSl cert check, this way we can use origin */
+  allow_insecure = true
 }
 
 /* WARNING: Statically done until Terraform 0.12 arrives */
 resource "cloudflare_load_balancer_pool" "main" {
-  name               = "${terraform.workspace}-${var.env}"
+  name               = "main.${terraform.workspace}.${var.env}"
   monitor            = "${cloudflare_load_balancer_monitor.main.id}"
   notification_email = "jakub@status.im"
   minimum_origins    = 1
   origins {
-    name    = "${element(keys(module.ipfs.hosts["do-ams3"]), 0)}"
-    address = "${element(values(module.ipfs.hosts["do-ams3"]), 0)}"
+    name    = "${element(keys(module.ipfs.hosts["do-eu-amsterdam3"]), 0)}"
+    address = "${element(values(module.ipfs.hosts["do-eu-amsterdam3"]), 0)}"
     enabled = true
   }
   origins {
