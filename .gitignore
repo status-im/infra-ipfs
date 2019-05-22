@@ -1,0 +1,18 @@
+.envrc
+
+.terraform/
+.terraform/environment
+terraform.tfstate.d/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+*.retry
+
+ansible/files/secrets/*
+ansible/secrets.yml
+ansible/files/*.crt
+ansible/files/*.srl
+ansible/files/*.key
+
+# Google Cloud secrets
+google-cloud.json
