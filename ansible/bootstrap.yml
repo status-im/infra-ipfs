@@ -1,0 +1,11 @@
+---
+- name: Bootstrap Python support for Ansible
+  gather_facts: False
+  hosts: all
+  roles:
+    - infra-role-bootstrap/raw
+
+- name: Bootstrap admin accounts and Consul
+  hosts: all
+  roles:
+    - infra-role-bootstrap
