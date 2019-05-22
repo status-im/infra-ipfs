@@ -2,6 +2,10 @@
 
 [IPFS](https://ipfs.io/) clusters configuration.
 
+To run it we use the [ipfs-cluster](https://hub.docker.com/r/ipfs/ipfs-cluster/) container.
+
+See [the documentation](https://cluster.ipfs.io/documentation/) for more details.
+
 # Requirements
 
 In order to use this you will need secrets(passwords, certs, keys) contained within the [infra-pass](https://github.com/status-im/infra-pass) repository. If you can't see it ask jakub@status.im to get you access for it.
