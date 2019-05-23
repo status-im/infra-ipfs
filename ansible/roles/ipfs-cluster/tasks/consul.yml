@@ -1,0 +1,31 @@
+---
+- name: Read IPFS configuration
+  slurp:
+    path: '{{ ipfs_cluster_cont_vol }}/data/service.json'
+  register: service_json
+
+- name: Pase IPFS config
+  set_fact:
+    service_cfg: '{{ service_json.content | b64decode | from_json }}'
+
+- name: Extract Peer ID
+  set_fact:
+    ipfs_peer_id: '{{ service_cfg["cluster"]["id"] }}'
+
+- name: Create Consul service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ consul_service_name }}'
+    consul_services:
+      - name: '{{ consul_service_name }}'
+        tags: ['ipfs', 'cluster']
+        port: '{{ ipfs_cluster_api_port }}'
+        address: '{{ ansible_host }}'
+        meta:
+          ipfs_peer_id: '{{ ipfs_peer_id }}'
+          ipfs_peer_rpc: '/ip4/{{ ansible_host }}/tcp/{{ ipfs_cluster_rpc_port }}/ipfs/{{ ipfs_peer_id }}'
+        checks:
+          - id: '{{ ipfs_cluster_cont_name }}-status'
+            name: IPFS Healthcheck
+            type: http
+            http: 'http://localhost:{{ ipfs_cluster_api_port }}/id'

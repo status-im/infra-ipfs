@@ -1,0 +1,3 @@
+---
+ipfs_cluster_secret:  '{{lookup("passwordstore", "service/ipfs-cluster/secret")}}'
+

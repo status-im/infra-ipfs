@@ -1,0 +1,20 @@
+---
+- name: Enable HTTP & HTTPS ports
+  iptables:
+    action: insert
+    chain: DOCKER-USER
+    jump: ACCEPT
+    source: '0.0.0.0/0'
+    protocol: 'tcp'
+    comment: '{{ item.cmnt }}'
+    destination_port: '{{ item.port }}'
+  with_items:
+    - { cmnt: 'IPFS HTTP',          port: 80 }
+    - { cmnt: 'IPFS SSL',           port: 443 }
+    - { cmnt: 'IPFS API',           port: '{{ ipfs_api_port }}' }
+    - { cmnt: 'IPFS Swarm',         port: '{{ ipfs_swarm_port }}' }
+    - { cmnt: 'IPFS Cluster API',   port: '{{ ipfs_cluster_api_port }}' }
+    - { cmnt: 'IPFS Cluster RPC',   port: '{{ ipfs_cluster_rpc_port }}' }
+    - { cmnt: 'IPFS Cluster Proxy', port: '{{ ipfs_cluster_proxy_port }}' }
+  notify:
+    - Save iptables rules

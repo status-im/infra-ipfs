@@ -1,0 +1,26 @@
+---
+- name: 'Start container: {{ ipfs_cont_name }}'
+  docker_container:
+    name: '{{ ipfs_cont_name }}'
+    image: '{{ ipfs_cont_image }}'
+    pull: true
+    restart_policy: always
+    state: '{{ cont_state }}'
+    recreate: '{{ cont_recreate }}'
+    restart: '{{ cont_restart }}'
+    ports:
+      - '{{ ipfs_swarm_port }}:{{ ipfs_swarm_port }}/tcp'
+      - '{{ ipfs_gateway_port }}:{{ ipfs_gateway_port }}/tcp'
+    volumes:
+      - '{{ ipfs_cont_vol }}/data:/data/ipfs'
+
+- name: 'Save container IP: {{ ipfs_cont_name }}'
+  command: >
+    docker inspect -f 
+      '{%raw%}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}{%endraw%}'
+      {{ ipfs_cont_name }}
+  register: ipfs_cont_ip_inspect
+
+- name: Extract IP
+  set_fact:
+    ipfs_cont_ip: '{{ ipfs_cont_ip_inspect.stdout }}'

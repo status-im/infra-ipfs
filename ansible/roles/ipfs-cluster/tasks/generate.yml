@@ -1,0 +1,18 @@
+---
+- name: Check if IPFS config exists
+  stat:
+    path: '{{ ipfs_cluster_cont_vol }}/data/service.json'
+  register: ipfs_config
+
+- name: Generate config for container
+  docker_container:
+    name: '{{ ipfs_cluster_cont_name }}-config-gen'
+    image: '{{ ipfs_cluster_cont_image }}'
+    auto_remove: true
+    env:
+      CLUSTER_SECRET: '{{ ipfs_cluster_secret }}'
+      PFS_API: '/ip4/{{ ipfs_cont_ip }}/tcp/{{ ipfs_api_port }}'
+    command: init
+    volumes:
+      - '{{ ipfs_cluster_cont_vol }}/data:/data/ipfs-cluster'
+  when: not ipfs_config.stat.exists
