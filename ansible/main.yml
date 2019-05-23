@@ -1,0 +1,6 @@
+---
+- name: Configure IPFS cluster
+  hosts: ipfs
+  roles:
+    - origin-cert
+    - ipfs-cluster
