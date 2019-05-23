@@ -1,10 +1,6 @@
 # Description
 
-[IPFS](https://ipfs.io/) clusters configuration.
-
-To run it we use the [ipfs-cluster](https://hub.docker.com/r/ipfs/ipfs-cluster/) container.
-
-See [the documentation](https://cluster.ipfs.io/documentation/) for more details.
+[IPFS](https://ipfs.io/) clusters configuration. Read [role README](ansible/roles/ipfs-cluster) for more info.
 
 # Requirements
 
