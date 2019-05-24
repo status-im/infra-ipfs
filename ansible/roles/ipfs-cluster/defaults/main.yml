@@ -12,6 +12,7 @@ ipfs_cont_vol: '/docker/{{ ipfs_cont_name }}'
 ipfs_api_port: 5001
 # WARNING: this port should never be public
 ipfs_swarm_port: 4001
+# this is the port that exposes IPFS resources
 ipfs_gateway_port: 8080
 
 # cluster specific settings
