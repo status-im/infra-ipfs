@@ -17,11 +17,10 @@
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
     links:
-      '{{ ipfs_cont_name }}:ipfs'
+      '{{ ipfs_cont_name }}:{{ ipfs_cont_name }}'
     env:
       IPFS_LOGGING_FMT: nocolor
-      CLUSTER_SECRET: '{{ ipfs_cluster_secret }}'
-      IPFS_API: '/dns4/ipfs/tcp/{{ ipfs_api_port }}'
+    command: daemon --upgrade
     ports:
       - '{{ ipfs_cluster_api_port }}:{{ ipfs_cluster_api_port }}/tcp'
       - '{{ ipfs_cluster_rpc_port }}:{{ ipfs_cluster_rpc_port }}/tcp'

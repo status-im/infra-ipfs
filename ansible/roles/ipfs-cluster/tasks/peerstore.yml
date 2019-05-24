@@ -16,9 +16,33 @@
   set_fact:
     ipfs_services: '{{ ipfs_services_dcs.results | sum(attribute="json", start=[]) }}'
 
+- name: Extract service metadata
+  set_fact:
+    ipfs_services_meta: '{{ ipfs_services | map(attribute="ServiceMeta") | list }}'
+
 - name: Extract RCP addresses
   set_fact:
-    ipfs_peers_rpc: '{{ ipfs_services | map(attribute="ServiceMeta") | map(attribute="ipfs_peer_rpc") | list }}'
+    ipfs_peers_rpc: |
+      {{ ipfs_services_meta
+      | rejectattr("ipfs_peer_id", "eq", ipfs_peer_id)
+      | map(attribute="ipfs_peer_rpc")
+      | list }}
+    ipfs_peers_ids: |
+      {{ ipfs_services_meta
+      | map(attribute="ipfs_peer_id")
+      | list }}
+
+- name: Backup IPFS config
+  copy:
+    src: '{{ ipfs_cluster_cont_vol }}/data/service.json'
+    dest: '{{ ipfs_cluster_cont_vol }}/data/service_bkp.json'
+    remote_src: true
+
+- name: Update init_peerset
+  shell: >
+    jq '.consensus.raft.init_peerset = {{ ipfs_peers_ids | to_json }}' \
+      {{ ipfs_cluster_cont_vol }}/data/service_bkp.json > \
+      {{ ipfs_cluster_cont_vol }}/data/service.json
 
 - name: Create peerstore file
   copy:
@@ -26,8 +50,3 @@
     content: "{{ ipfs_peers_rpc | join('\n') }}"
     owner: '{{ ipfs_cluster_host_uid }}'
     group: docker 
-
-- name: 'Restart container: {{ ipfs_cluster_cont_name }}'
-  docker_container:
-    name: '{{ ipfs_cluster_cont_name }}'
-    restart: true
