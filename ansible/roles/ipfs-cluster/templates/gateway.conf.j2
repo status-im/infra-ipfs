@@ -1,0 +1,22 @@
+server {
+  listen 80;
+  server_name {{ ipfs_cluster_domain }};
+  return 302 https://$host$request_uri;
+}
+
+server {
+  listen 443 ssl;
+
+  server_name {{ ipfs_cluster_domain }};
+
+  ssl_certificate     /certs/origin.crt;
+  ssl_certificate_key /certs/origin.key;
+
+  client_max_body_size 10m;
+
+  location / {
+    proxy_pass http://localhost:{{ ipfs_cluster_proxy_port }};
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+}
