@@ -9,6 +9,7 @@ ipfs_cont_tag: 'v0.4.20'
 ipfs_cont_image: 'ipfs/go-ipfs:{{ ipfs_cont_tag }}'
 ipfs_cont_name: 'ipfs-service'
 ipfs_cont_vol: '/docker/{{ ipfs_cont_name }}'
+# WARNING: this port should never be public
 ipfs_api_port: 5001
 ipfs_swarm_port: 4001
 ipfs_gateway_port: 8080
@@ -26,6 +27,7 @@ ipfs_cluster_rest_addr: '0.0.0.0'
 ipfs_cluster_api_port: 9094
 ipfs_cluster_rpc_port: 9096
 ipfs_cluster_node_port: 5001
+# WARNING: this port should never be public
 ipfs_cluster_proxy_port: 9095
 
 # levels: critical, error, warning, info, debug
