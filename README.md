@@ -2,6 +2,8 @@
 
 [IPFS](https://ipfs.io/) clusters configuration. Read [role README](ansible/roles/ipfs-cluster) for more info.
 
+For more details see the [ipfs-cluster Ansible role](ansible/role/ipfs-cluster) `README` file.
+
 # Requirements
 
 In order to use this you will need secrets(passwords, certs, keys) contained within the [infra-pass](https://github.com/status-im/infra-pass) repository. If you can't see it ask jakub@status.im to get you access for it.
