@@ -29,7 +29,8 @@ ipfs_cluster_secret: 9a420ec947512b8836d8eb46e1c56fdb746ab8a78015b9821e6b46b3834
 
 # Known Issues
 
-__TODO__
+* [Raft](https://en.wikipedia.org/wiki/Raft_(computer_science)) protocol is sensitive to cluster setup changes and can have trouble finding a leader.
+    - The solution to that might be adding hosts one by one, or just removing the `raft` directory from `/docker/ipfs-cluster/data` folders and restarting everything.
 
 # Links
 
