@@ -1,3 +1,4 @@
 ---
+ipfs_cluster_domain: 'ipfs.status.im'
 ipfs_cluster_secret:  '{{lookup("passwordstore", "service/ipfs-cluster/secret")}}'
 
