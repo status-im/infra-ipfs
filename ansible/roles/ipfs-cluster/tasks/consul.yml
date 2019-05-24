@@ -26,6 +26,21 @@
           ipfs_peer_rpc: '/ip4/{{ ansible_host }}/tcp/{{ ipfs_cluster_rpc_port }}/ipfs/{{ ipfs_peer_id }}'
         checks:
           - id: '{{ ipfs_cluster_cont_name }}-status'
-            name: IPFS Healthcheck
+            name: IPFS Cluster Healthcheck
             type: http
             http: 'http://localhost:{{ ipfs_cluster_api_port }}/id'
+
+- name: Create Consul service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ ipfs_cont_name }}'
+    consul_services:
+      - name: '{{ ipfs_cont_name }}'
+        tags: ['ipfs', 'service']
+        port: '{{ ipfs_api_port }}'
+        address: '{{ ansible_host }}'
+        checks:
+          - id: '{{ ipfs_cluster_cont_name }}-status'
+            name: IPFS Healthcheck
+            type: http
+            http: 'http://localhost:{{ ipfs_api_port }}/api/v0/repo/stat'
