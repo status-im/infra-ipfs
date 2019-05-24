@@ -9,6 +9,7 @@
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
     ports:
+      - '{{ ipfs_api_port }}:{{ ipfs_api_port }}/tcp'
       - '{{ ipfs_swarm_port }}:{{ ipfs_swarm_port }}/tcp'
       - '{{ ipfs_gateway_port }}:{{ ipfs_gateway_port }}/tcp'
     volumes:
