@@ -61,7 +61,6 @@ module "ipfs" {
   open_ports  = [
     "443-443",   /* https */
     "4001-4001", /* IPFS Swarm */
-    "5001-5001", /* IPFS Node */
     "9094-9096", /* IPFS Cluster */
   ]
 }
