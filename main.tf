@@ -44,16 +44,14 @@ locals {
 /* RESOURCES --------------------------------------*/
 
 module "ipfs" {
-  source      = "github.com/status-im/infra-tf-multi-provider"
+  source      = "github.com/status-im/infra-tf-digital-ocean"
   /* node type */
   name        = "node"
   group       = "ipfs"
   /* scaling options */
   count       = "${local.ws["hosts_count"]}"
-  do_size     = "s-1vcpu-2gb"
-  gc_size     = "n1-standard-2"
-  ac_size     = "ecs.sn1ne.large"
-  gc_vol_size = 50
+  size        = "n1-standard-2"
+  vol_size    = 50
   /* general */
   env         = "${var.env}"
   domain      = "${var.domain}"
@@ -65,50 +63,10 @@ module "ipfs" {
   ]
 }
 
-resource "cloudflare_load_balancer_monitor" "main" {
-  description    = "Root health check"
-  expected_codes = "2xx"
-  expected_body  = ""
-  method         = "GET"
-  type           = "https"
-  path           = "/"
-  interval       = 60
-  retries        = 5
-  timeout        = 7
-  /* disables SSl cert check, this way we can use origin */
-  allow_insecure = true
-}
-
-/* WARNING: Statically done until Terraform 0.12 arrives */
-resource "cloudflare_load_balancer_pool" "main" {
-  name               = "main.${terraform.workspace}.${var.env}"
-  monitor            = "${cloudflare_load_balancer_monitor.main.id}"
-  notification_email = "jakub@status.im"
-  minimum_origins    = 1
-  origins {
-    name    = "${element(keys(module.ipfs.hosts["do-eu-amsterdam3"]), 0)}"
-    address = "${element(values(module.ipfs.hosts["do-eu-amsterdam3"]), 0)}"
-    enabled = true
-  }
-  origins {
-    name    = "${element(keys(module.ipfs.hosts["gc-us-central1-a"]), 0)}"
-    address = "${element(values(module.ipfs.hosts["gc-us-central1-a"]), 0)}"
-    enabled = true
-  }
-  origins {
-    name    = "${element(keys(module.ipfs.hosts["ac-cn-hongkong-c"]), 0)}"
-    address = "${element(values(module.ipfs.hosts["ac-cn-hongkong-c"]), 0)}"
-    enabled = true
-  }
-}
-
-// This might work, not sure yet
-resource "cloudflare_load_balancer" "main" {
-  zone             = "status.im"
-  name             = "${local.dns_prefix}${var.env}.status.im"
-  description      = "Load balancing of IPFS fleet."
-  proxied          = true
-
-  fallback_pool_id = "${cloudflare_load_balancer_pool.main.id}"
-  default_pool_ids = ["${cloudflare_load_balancer_pool.main.id}"]
+resource "cloudflare_record" "ipfs" {
+  domain  = "${var.public_domain}"
+  name    = "${terraform.workspace}-${var.env}"
+  type    = "A"
+  proxied = true
+  value   = "${module.ipfs.public_ips[0]}"
 }
