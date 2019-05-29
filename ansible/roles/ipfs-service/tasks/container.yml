@@ -8,6 +8,8 @@
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
+    env:
+      IPFS_PROFILE: server
     ports:
       - '127.0.0.1:{{ ipfs_admin_port }}:{{ ipfs_admin_port }}/tcp'
       - '{{ ipfs_swarm_port }}:{{ ipfs_swarm_port }}/tcp'
