@@ -17,7 +17,7 @@ ipfs_cluster_cont_uid: 1000
 ipfs_cluster_host_uid: '{{ 100000 + ipfs_cluster_cont_uid - 1 | int }}'
 
 # Cluster Admin API
-ipfs_cluster_node_port: 5001
+ipfs_cluster_admin_port: 5001
 # Cluster REST API
 ipfs_cluster_rest_addr: '0.0.0.0'
 ipfs_cluster_rest_port: 9094

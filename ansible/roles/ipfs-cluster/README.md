@@ -21,7 +21,7 @@ The cluster peers talk to one another using [libp2p](https://libp2p.io/). All th
 
 There are 4 ports exposed by this container:
 
-* `5001` - Admin API port. Should __never__ be public.
+* `5001` - Admin API port. Used by `ipfs-cluster-ctl`. Should __never__ be public.
 * `9094` - Cluster REST API port.
 * `9095` - IPFS Service Admin Proxy port. Should __never__ be public.
 * `9096` - Cluster [Raft](https://en.wikipedia.org/wiki/Raft_(computer_science)) port. Should be public.
