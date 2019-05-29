@@ -69,5 +69,6 @@ resource "cloudflare_record" "ipfs" {
   name    = "${terraform.workspace}-${var.env}"
   type    = "A"
   proxied = true
-  value   = "${module.ipfs.public_ips[0]}"
+  count   = "${length(module.ipfs.public_ips)}"
+  value   = "${element(module.ipfs.public_ips, count.index)}"
 }
