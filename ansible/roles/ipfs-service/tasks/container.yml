@@ -9,6 +9,7 @@
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
     env:
+      # https://github.com/ipfs/go-ipfs/blob/master/docs/config.md
       IPFS_PROFILE: server
     ports:
       - '127.0.0.1:{{ ipfs_admin_port }}:{{ ipfs_admin_port }}/tcp'
