@@ -17,14 +17,26 @@ The reason we need the Cluster is because it allows us to share a [pinset](https
 
 The cluster peers talk to one another using [libp2p](https://libp2p.io/). All the peers can safely talk to one another because the share a __secret key__ which is a 32-bit hex encoded random string.
 
+# Ports
+
+There are 4 ports exposed by this container:
+
+* `5001` - Admin API port. Should __never__ be public.
+* `9094` - Cluster REST API port.
+* `9095` - IPFS Service Admin Proxy port. Should __never__ be public.
+* `9096` - Cluster [Raft](https://en.wikipedia.org/wiki/Raft_(computer_science)) port. Should be public.
+
 # Configuration
 
-The main two parts of configuration required are the domain and the shared secret.
+The main three parts of configuration required are the domain and the shared secret.
 ```yaml
 # will be used for configuring the nginx proxy
 ipfs_cluster_domain: ipfs.example.org
 # needs to be the same for all cluster members
 ipfs_cluster_secret: 9a420ec947512b8836d8eb46e1c56fdb746ab8a78015b9821e6b46b38344038f
+# name of the container to connect to
+ipfs_cluster_service_cont: my-ipfs-container
+ipfs_cluster_service_port: 5001
 ```
 
 # Known Issues

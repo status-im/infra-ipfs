@@ -11,7 +11,7 @@
     auto_remove: true
     env:
       CLUSTER_SECRET: '{{ ipfs_cluster_secret }}'
-      IPFS_API: '/dns4/{{ ipfs_cont_name }}/tcp/{{ ipfs_api_port }}'
+      IPFS_API: '{{ ipfs_cluster_service_addr }}'
     command: init
     volumes:
       - '{{ ipfs_cluster_cont_vol }}/data:/data/ipfs-cluster'

@@ -3,4 +3,5 @@
   hosts: ipfs
   roles:
     - origin-cert
+    - ipfs-service
     - ipfs-cluster

@@ -17,13 +17,13 @@
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
     links:
-      '{{ ipfs_cont_name }}:{{ ipfs_cont_name }}'
+      '{{ ipfs_cluster_service_cont }}:{{ ipfs_cluster_service_cont }}'
     env:
       IPFS_LOGGING_FMT: nocolor
     command: daemon --upgrade
     ports:
-      - '{{ ipfs_cluster_api_port }}:{{ ipfs_cluster_api_port }}/tcp'
-      - '{{ ipfs_cluster_rpc_port }}:{{ ipfs_cluster_rpc_port }}/tcp'
+      - '{{ ipfs_cluster_rest_port }}:{{ ipfs_cluster_rest_port }}/tcp'
+      - '{{ ipfs_cluster_raft_port }}:{{ ipfs_cluster_raft_port }}/tcp'
       - '{{ ipfs_cluster_proxy_port }}:{{ ipfs_cluster_proxy_port }}/tcp'
     volumes:
       - '{{ ipfs_cluster_cont_vol }}/data:/data/ipfs-cluster'

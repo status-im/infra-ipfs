@@ -1,19 +1,12 @@
 ---
-# will be used for configuring the nginx proxy
-ipfs_cluster_domain: ~
 # needs to be the same for all cluster members
 ipfs_cluster_secret: ~
+# name of container to connect to
+ipfs_cluster_service_cont: ~
+ipfs_cluster_service_port: 5001
 
-# ipfs specific settings
-ipfs_cont_tag: 'v0.4.20'
-ipfs_cont_image: 'ipfs/go-ipfs:{{ ipfs_cont_tag }}'
-ipfs_cont_name: 'ipfs-service'
-ipfs_cont_vol: '/docker/{{ ipfs_cont_name }}'
-ipfs_api_port: 5001
-# WARNING: this port should never be public
-ipfs_swarm_port: 4001
-# this is the port that exposes IPFS resources
-ipfs_gateway_port: 8080
+# address used to link ipfs-cluster with ipfs service
+ipfs_cluster_service_addr: '/dns4/{{ ipfs_cluster_service_cont | mandatory }}/tcp/{{ ipfs_cluster_service_port }}'
 
 # cluster specific settings
 ipfs_cluster_cont_tag: 'v0.10.1'
@@ -23,11 +16,13 @@ ipfs_cluster_cont_vol: '/docker/{{ ipfs_cluster_cont_name }}'
 ipfs_cluster_cont_uid: 1000
 ipfs_cluster_host_uid: '{{ 100000 + ipfs_cluster_cont_uid - 1 | int }}'
 
-# api settings
-ipfs_cluster_rest_addr: '0.0.0.0'
-ipfs_cluster_api_port: 9094
-ipfs_cluster_rpc_port: 9096
+# Cluster Admin API
 ipfs_cluster_node_port: 5001
+# Cluster REST API
+ipfs_cluster_rest_addr: '0.0.0.0'
+ipfs_cluster_rest_port: 9094
+# port for cluster peer election viar raft
+ipfs_cluster_raft_port: 9096
 # WARNING: this port should never be public
 ipfs_cluster_proxy_port: 9095
 
