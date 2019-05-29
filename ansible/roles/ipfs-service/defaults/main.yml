@@ -2,9 +2,6 @@
 # will be used for configuring the nginx proxy
 ipfs_cluster_domain: ~
 
-# which domains should be allowed access
-ipfs_cors_domain_regex: '.*'
-
 # ipfs specific settings
 ipfs_cont_tag: 'v0.4.20'
 ipfs_cont_image: 'ipfs/go-ipfs:{{ ipfs_cont_tag }}'

@@ -13,7 +13,6 @@ server {
   ssl_certificate_key /certs/origin.key;
 
   location / {
-    {% include 'cors.conf.j2' %}
     proxy_pass http://localhost:{{ ipfs_gateway_port }};
     proxy_set_header Host $host;
     proxy_cache_bypass $http_upgrade;
@@ -30,10 +29,9 @@ server {
   ssl_certificate_key /certs/origin.key;
 
   client_max_body_size {{ ipfs_api_exposed_max_body_size }};
-
   {% for path in ipfs_api_exposed_paths %}
+
   location {{ path }} {
-    {% include 'cors.conf.j2' %}
     proxy_pass http://localhost:{{ ipfs_admin_port }};
   }
   {% endfor %}
