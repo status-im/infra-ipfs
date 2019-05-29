@@ -1,13 +1,3 @@
-#
-# CORS header support
-#
-# This allows us to embed pages from discuss.status.im in other *.status.im pages
-# via a JavaScript snippet from here:
-# https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963
-#
-# For more information on CORS, please see: http://enable-cors.org/
-#
-
 set $cors '';
 if ($http_origin ~ '^https?://{{ ipfs_cors_domain_regex }}$') {
     set $cors 'true';
