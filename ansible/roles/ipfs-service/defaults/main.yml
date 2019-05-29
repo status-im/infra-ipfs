@@ -25,6 +25,9 @@ ipfs_api_exposed_port: 2053
 ipfs_api_exposed_paths:
   - /api/v0/object/get
 
+# config settings to adjust after container start
+ipfs_config: {}
+
 # generic container settings
 cont_state: started
 cont_recreate: false

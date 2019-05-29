@@ -1,0 +1,4 @@
+---
+- name: Configure IPFS settings
+  command: "docker exec {{ ipfs_cont_name }} ipfs config --json '{{ item.key }}' '{{ item.value }}'"
+  with_dict: '{{ ipfs_config }}'

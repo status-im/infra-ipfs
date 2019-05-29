@@ -11,3 +11,8 @@ ipfs_api_exposed_paths:
   - /api/v0/pin/add
   - /api/v0/pin/rm
   - /api/v0/object/get
+
+# allow all domains for CORS
+ipfs_config:
+  'API.HTTPHeaders.Access-Control-Allow-Origin': '["*"]'
+  'API.HTTPHeaders.Access-Control-Allow-Methods': '["PUT", "GET", "POST"]'
