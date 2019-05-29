@@ -2,3 +2,10 @@
 - name: Configure IPFS settings
   command: "docker exec {{ ipfs_cont_name }} ipfs config --json '{{ item.key }}' '{{ item.value }}'"
   with_dict: '{{ ipfs_config }}'
+  register: ipfs_config_calls
+
+- name: Restart docker container
+  docker_container:
+    name: '{{ ipfs_cont_name }}'
+    restart: true
+  when: ipfs_config_calls.changed
