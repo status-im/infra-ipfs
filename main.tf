@@ -44,13 +44,13 @@ locals {
 /* RESOURCES --------------------------------------*/
 
 module "ipfs" {
-  source      = "github.com/status-im/infra-tf-digital-ocean"
+  source      = "github.com/status-im/infra-tf-google-cloud"
   /* node type */
   name        = "node"
   group       = "ipfs"
   /* scaling options */
   count       = "${local.ws["hosts_count"]}"
-  size        = "n1-standard-2"
+  type        = "n1-standard-2"
   vol_size    = 50
   /* general */
   env         = "${var.env}"
