@@ -12,11 +12,29 @@ server {
   ssl_certificate     /certs/origin.crt;
   ssl_certificate_key /certs/origin.key;
 
-  client_max_body_size 10m;
-
   location / {
     proxy_pass http://localhost:{{ ipfs_gateway_port }};
     proxy_set_header Host $host;
     proxy_cache_bypass $http_upgrade;
   }
 }
+{% if ipfs_api_exposed %}
+
+server {
+  listen {{ ipfs_api_exposed_port }} ssl;
+
+  server_name {{ ipfs_cluster_domain }};
+
+  ssl_certificate     /certs/origin.crt;
+  ssl_certificate_key /certs/origin.key;
+
+  client_max_body_size {{ ipfs_api_exposed_max_body_size }};
+
+  {% for path in ipfs_api_exposed_paths %}
+  location {{ path }} {
+    proxy_pass http://localhost:{{ ipfs_admin_port }};
+  }
+  {% endfor %}
+
+}
+{% endif %}

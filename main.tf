@@ -61,6 +61,7 @@ module "ipfs" {
     "443-443",   /* HTTPS */
     "4001-4001", /* IPFS Swarm */
     "9094-9096", /* IPFS Cluster */
+    "2053-2053", /* IPFS API Proxy */
   ]
 }
 

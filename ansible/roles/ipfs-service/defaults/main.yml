@@ -15,6 +15,13 @@ ipfs_swarm_port: 4001
 # this is the port that exposes IPFS resources and some R/O APi
 ipfs_gateway_port: 8080
 
+# for selective exposing some of the admin API
+ipfs_api_exposed: false
+ipfs_api_exposed_max_body_size: '50m'
+ipfs_api_exposed_port: 2053
+ipfs_api_exposed_paths:
+  - /api/v0/object/get
+
 # generic container settings
 cont_state: started
 cont_recreate: false
