@@ -11,6 +11,5 @@
   with_items:
     - { cmnt: 'IPFS Cluster API',   port: '{{ ipfs_cluster_rest_port }}' }
     - { cmnt: 'IPFS Cluster Raft',  port: '{{ ipfs_cluster_raft_port }}' }
-    - { cmnt: 'IPFS Cluster Proxy', port: '{{ ipfs_cluster_proxy_port }}' }
   notify:
     - Save iptables rules
