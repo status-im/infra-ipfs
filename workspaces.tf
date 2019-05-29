@@ -10,7 +10,7 @@
 locals {
   env = {
     defaults = {
-      hosts_count = 1
+      hosts_count = 2
     }
 
     # For testing infra changes before rollout to other fleets
