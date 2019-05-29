@@ -54,7 +54,7 @@ module "ipfs" {
   vol_size    = 50
   /* general */
   env         = "${var.env}"
-  domain      = "${var.domain}"
+  domain      = "${var.hosts_domain}"
   /* firewall */
   open_ports  = [
     "80-80",     /* HTTP */

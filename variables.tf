@@ -12,8 +12,13 @@ variable env {
   default     = "ipfs"
 }
 
-variable domain {
-  description = "DNS Domain to update"
+variable public_domain {
+  description = "Public DNS Domain to update"
+  default     = "status.im"
+}
+
+variable hosts_domain {
+  description = "Hosts DNS Domain to update"
   default     = "statusim.net"
 }
 
