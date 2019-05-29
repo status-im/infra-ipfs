@@ -13,7 +13,7 @@ server {
   ssl_certificate_key /certs/origin.key;
 
   location / {
-    include cors_support.conf;
+    {% include 'cors.conf.j2' %}
     proxy_pass http://localhost:{{ ipfs_gateway_port }};
     proxy_set_header Host $host;
     proxy_cache_bypass $http_upgrade;
@@ -33,7 +33,7 @@ server {
 
   {% for path in ipfs_api_exposed_paths %}
   location {{ path }} {
-    include cors_support.conf;
+    {% include 'cors.conf.j2' %}
     proxy_pass http://localhost:{{ ipfs_admin_port }};
   }
   {% endfor %}

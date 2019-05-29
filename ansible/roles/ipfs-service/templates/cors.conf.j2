@@ -9,7 +9,7 @@
 #
 
 set $cors '';
-if ($http_origin ~ '^https?://{{ ipfs_cors_rule }}$') {
+if ($http_origin ~ '^https?://{{ ipfs_cors_domain_regex }}$') {
     set $cors 'true';
 }
 
