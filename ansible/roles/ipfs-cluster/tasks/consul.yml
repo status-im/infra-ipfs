@@ -19,7 +19,7 @@
     consul_services:
       - name: '{{ consul_service_name }}'
         tags: ['ipfs', 'cluster']
-        port: '{{ ipfs_cluster_api_port }}'
+        port: '{{ ipfs_cluster_rest_port }}'
         address: '{{ ansible_host }}'
         meta:
           ipfs_peer_id: '{{ ipfs_peer_id }}'
@@ -28,4 +28,4 @@
           - id: '{{ ipfs_cluster_cont_name }}-status'
             name: IPFS Cluster Healthcheck
             type: http
-            http: 'http://localhost:{{ ipfs_cluster_api_port }}/id'
+            http: 'http://localhost:{{ ipfs_cluster_rest_port }}/id'
