@@ -30,6 +30,13 @@ These can be installed using.
 make deps
 ```
 
+## Terraform
+
+Terraform needs to be initialized, and pull all the modules.
+```bash
+make init-terraform
+```
+
 # Usage
 
 To start work on a fleet you need to select a Terraform workspace.
