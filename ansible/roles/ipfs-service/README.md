@@ -33,3 +33,4 @@ Read the [USAGE](./USAGE.md) file.
 * https://hackernoon.com/public-ipfs-node-behind-nginx-reverse-proxy-5682747f174b?gi=88a6ba04211b
 * https://github.com/ipfs/go-ipfs/issues/5610
 * https://discuss.ipfs.io/t/how-should-i-configure-my-firewall/471
+* https://www.ctrl.blog/entry/ipfs-repo-cache-gc.html
