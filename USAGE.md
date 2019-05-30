@@ -1,3 +1,14 @@
+# Table of Contents
+
+- [Getting Started](#getting-started)
+  * [Secrets](#secrets)
+  * [Dependencies](#dependencies)
+  * [Terraform](#terraform)
+- [Usage](#usage)
+- [Workspaces](#workspaces)
+- [Details](#details)
+- [Known Issues](#known-issues)
+
 # Getting Started
 
 All you should need to do is:
@@ -92,3 +103,10 @@ For more details read our [`infra-docs`](https://github.com/status-im/infra-docs
 * [Infra Tips & Tricks](https://github.com/status-im/infra-docs/blob/master/articles/infra_tips_n_tricks.md)
 
 Or refer to `README.dm` files in specific Ansible roles and Terraform modules.
+
+# Known Issues
+
+* `Error loading state: failed to lock state in Consul`
+    - Sometimes when you stop Terraform `apply` or a network connection is broken a lock can be left in the [Consul K/V store](https://www.consul.io/api/kv.html).
+    - This usually will resolve itself after waiting a minute or two.
+    - lock can be removed by finding the `.lock` and `.lock-info` keys in [the store](https://consul.status.im/ui/do-ams3/kv/terraform/) for the specific workspace and removing them.
