@@ -8,6 +8,13 @@ For more details see ehese `README` files:
 * [ipfs-service](ansible/roles/ipfs-service) - The IPFS service itself.
 * [ipfs-cluster](ansible/roles/ipfs-cluster) - Software for clustering IPFS.
 
+# Endpoints
+
+|                     |                                   |
+|---------------------|-----------------------------------|
+| Public IPFS Gateway | https://test-ipfs.status.im/      |
+| Public IPFS API     | https://test-ipfs.status.im:2053/ |
+
 # Repo Usage
 
 For how to use this repo read the [`USAGE.md`](USAGE.md) file.
