@@ -21,6 +21,10 @@ ipfs_cluster_domain: ipfs.example.org
 ipfs_cont_tag: 'v0.4.20'
 ```
 
+# Usage
+
+Read the [USAGE](./USAGE.md) file.
+
 # Links
 
 * https://docs.ipfs.io/introduction/overview/

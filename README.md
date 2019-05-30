@@ -10,4 +10,4 @@ For more details see ehese `README` files:
 
 # Repo Usage
 
-For how to use this repo read the [USAGE](USAGE.md) `README` file.
+For how to use this repo read the [`USAGE.md`](USAGE.md) file.
