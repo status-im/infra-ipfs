@@ -1,9 +1,10 @@
 # Description
 
-[IPFS](https://ipfs.io/) clusters configuration. Read [role README](ansible/roles/ipfs-cluster) for more info.
+[IPFS](https://ipfs.io/) clusters configuration.
 
-For more details see `README` files of Ansible roles:
+For more details see ehese `README` files:
 
+* [UPFS Usage](USAGE.md) - How to use exposed API.
 * [ipfs-service](ansible/roles/ipfs-service) - The IPFS service itself.
 * [ipfs-cluster](ansible/roles/ipfs-cluster) - Software for clustering IPFS.
 
