@@ -1,46 +1,61 @@
-# Into
+# Requirements
 
-For details on how to use IPFS you can read about:
+In order to use this you will need secrets(passwords, certs, keys) contained within the [infra-pass](https://github.com/status-im/infra-pass) repository. If you can't see it ask jakub@status.im to get you access for it.
 
-* [Core Concepts](https://docs.ipfs.io/guides/concepts/)
-* [File Transfers](https://github.com/ipfs/go-ipfs/blob/master/docs/file-transfer.md)
-* [IPFS for Websites](https://docs.ipfs.io/guides/examples/websites/)
-* [HTTP Admin API](https://docs.ipfs.io/reference/api/http/)
+In order for this to work first you need to install necessary Terraform plugins and get the right secrets from the [infra-pass](https://github.com/status-im/infra-pass) repo, to do that simply run:
+```
+make
+# alternatively
+make plugins
+make secrets
+```
+This will put the necessary certificates, keys, and passwords are in place so you can deploy and configure hosts.
 
-# Public Admin API
+# Usage
 
-Some of the Admin API calls are exposed to the public on the `2053` port:
+To provision a new fleet create a new Terraform workspace:
+```
+terraform workspace new bug-test
+```
+Then plan your fleet and if everything looks good provision it:
+```
+terraform plan
+terraform apply
+```
+Once provisioned you can configure the hosts using Ansible:
+```
+ansible-playbook ansible/main.yml
+```
+Once finished your hosts should be accessible via SSH:
+```
+ssh ${USER}@node-01.xyz.prod.status.im
+```
 
-* [`/api/v0/add`](https://docs.ipfs.io/reference/api/http/#api-v0-add) - Add a file or directory to IPFS.
-* [`/api/v0/pin/add`](https://docs.ipfs.io/reference/api/http/#api-v0-pin-add) - Pin objects to local storage.
-* [`/api/v0/pin/rm`](https://docs.ipfs.io/reference/api/http/#api-v0-pin-rm) - Remove pinned objects from local storage.
-* [`/api/v0/object/get`](https://docs.ipfs.io/reference/api/http/#api-v0-object-get) - Get and serialize the DAG node named by .
+# Workspaces
 
-You can check details here:
+Each Terraform `workspace` has it's own path in the dynamic inventory and is a separate fleet of hosts.
+You can see currently existing fleets using following command:
+```
+terraform workspace list
+  default
+* prod
+  test
+```
+You can select a fleet and see it's current state of the fleet:
+```
+terraform workspace select test
+terraform show
+```
+Or create a new workspace for yourself.
+```
+terraform workspace new bug-test-01
+```
+The name of your workspace will be used in the DNS names of your hosts, for example:
+```
+mail-01.bug-test-01.xyz.f.status.im
+```
+And it's state will be saved in the [Consul](https://www.consul.io/) cluster managed by the [infra-hq](https://github.com/status-im/infra-hq) repo.
 
-* [ansible/group_vars/ipfs.yml](ansible/group_vars/ipfs.yml)
+# Details
 
-# Example
-
-Here's an example of uploading and pinning a file.
-
-1. Create a file to upload:
-  ```
-   $ echo "sup my dude" > hello
-  ```
-
-2. Upload the file using part of API exposed on port `2053`:
-  ```
-   $ curl -F file=@hello 'https://test-ipfs.status.im:2053/api/v0/add?pin=true'                                     
-  {"Name":"hello","Hash":"QmZdER7pR3S4NCri89kf5qVEZfDWvFSwLEYyAWRWdwQgHt","Size":"20"}
-  ```
-
-3. Check availability of the file using the `object/get` call:
-  ```
-   $ curl -s 'https://test-ipfs.status.im:2053/api/v0/object/get?arg=QmZdER7pR3S4NCri89kf5qVEZfDWvFSwLEYyAWRWdwQgHt'
-  {"Links":[],"Data":"\u0008\u0002\u0012\u000csup my dude\n\u0018\u000c"} 
-  ```
-
-That file should now be available via the public gateway:
-
-https://test-ipfs.status.im/ipfs/QmZdER7pR3S4NCri89kf5qVEZfDWvFSwLEYyAWRWdwQgHt
+Read the [Terraform and Ansible](https://github.com/status-im/infra-docs/blob/master/articles/ansible_terraform.md) article in our `infra-docs` repo.
