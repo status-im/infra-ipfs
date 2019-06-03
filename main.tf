@@ -50,7 +50,7 @@ module "ipfs" {
   group       = "ipfs"
   /* scaling options */
   count       = "${local.ws["hosts_count"]}"
-  type        = "n1-standard-1"
+  type        = "n1-standard-2"
   vol_size    = 50
   /* general */
   env         = "${var.env}"
