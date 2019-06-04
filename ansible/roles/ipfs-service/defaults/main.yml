@@ -22,8 +22,8 @@ ipfs_api_exposed_port: 2053
 ipfs_api_exposed_paths:
   - /api/v0/object/get
 
-# logging setting
-ipfs_debug_enabled: false
+# available: critical, error, warning, info, debug
+ipfs_log_level: info
 
 # hard storage limit
 ipfs_max_storage: '10GB'

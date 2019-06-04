@@ -11,12 +11,8 @@
     env:
       # https://github.com/ipfs/go-ipfs/blob/master/docs/config.md
       IPFS_PROFILE: server
+      IPFS_LOGGING: '{{ ipfs_log_level }}'
       IPFS_LOGGING_FMT: 'nocolor'
-    command: |
-      daemon
-      {% if ipfs_debug_enabled %}
-      --debug
-      {% endif %}
     ports:
       - '127.0.0.1:{{ ipfs_admin_port }}:{{ ipfs_admin_port }}/tcp'
       - '{{ ipfs_swarm_port }}:{{ ipfs_swarm_port }}/tcp'
