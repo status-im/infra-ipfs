@@ -16,8 +16,9 @@ ipfs_api_exposed_paths:
 
 # allow all domains for CORS
 ipfs_config:
-  'API.HTTPHeaders.Access-Control-Allow-Origin': '["*"]'
-  'API.HTTPHeaders.Access-Control-Allow-Methods': '["PUT", "GET", "POST"]'
+  'API.HTTPHeaders.Access-Control-Allow-Origin': ["*"]
+  'API.HTTPHeaders.Access-Control-Allow-Methods': ["PUT", "GET", "POST"]
+  'Addresses.Announce': ["/ip4/127.0.0.1", "/ip4/{{ ansible_host }}", "/dnsaddr/{{ dns_entry }}"]
 
 # we default to 70% of available storage
 ipfs_storage_ratio: 0.7

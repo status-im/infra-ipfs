@@ -11,7 +11,7 @@
     docker exec {{ ipfs_cont_name }}
       ipfs config --json
       '{{ item.key }}'
-      '{{ item.value }}'
+      '{{ item.value | to_json }}'
   with_dict: '{{ ipfs_config }}'
   register: ipfs_config_calls
 

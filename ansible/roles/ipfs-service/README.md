@@ -19,6 +19,9 @@ There are 3 ports exposed by the container:
 ipfs_cluster_domain: ipfs.example.org
 # version of IPFS container to use
 ipfs_cont_tag: 'v0.4.20'
+# ipfs configuration adjustments
+ipfs_config:
+  'API.HTTPHeaders.Access-Control-Allow-Origin': ["*"]
 ```
 
 # Usage
