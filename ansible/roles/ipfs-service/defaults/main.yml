@@ -17,6 +17,7 @@ ipfs_gateway_port: 8080
 
 # for selective exposing some of the admin API
 ipfs_api_exposed: false
+ipfs_epi_exposed_timeout: '600s'
 ipfs_api_exposed_max_body_size: '50m'
 ipfs_api_exposed_port: 2053
 ipfs_api_exposed_paths:
