@@ -14,7 +14,7 @@ def _tf_env():
     except:
         return 'default'
 
-TERRAFORM_PATH = os.environ.get('ANSIBLE_TF_BIN', 'terraform')
+TERRAFORM_PATH = os.environ.get('ANSIBLE_TF_BIN', 'terraform_0.11')
 TERRAFORM_DIR = os.environ.get('ANSIBLE_TF_DIR', os.getcwd())
 TERRAFORM_BPK = os.path.join(TERRAFORM_DIR, '.terraform/terraform.tfstate.backup')
 TERRAFORM_ENV = os.path.join(TERRAFORM_DIR, '.terraform/environment')
