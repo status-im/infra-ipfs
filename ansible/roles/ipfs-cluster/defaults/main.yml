@@ -27,7 +27,7 @@ ipfs_cluster_raft_port: 9096
 ipfs_cluster_proxy_port: 9095
 
 # levels: critical, error, warning, info, debug
-ipfs_cluster_log_level: info
+ipfs_cluster_log_level: 'warning'
 
 # generic container settings
 cont_state: started
