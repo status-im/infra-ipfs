@@ -9,31 +9,29 @@ endif
 PLUGIN_DIR = ~/.terraform.d/plugins
 
 PROVIDER_NAME = terraform-provider-ansible
-PROVIDER_VERSION = v0.0.4
+PROVIDER_VERSION = v1.0.3
 PROVIDER_ARCHIVE = $(PROVIDER_NAME)-$(ARCH).zip
 PROVIDER_URL = https://github.com/nbering/terraform-provider-ansible/releases/download/$(PROVIDER_VERSION)/$(PROVIDER_ARCHIVE)
 
 PROVISIONER_NAME = terraform-provisioner-ansible
-PROVISIONER_VERSION = v2.0.0
+PROVISIONER_VERSION = v2.3.0
 PROVISIONER_ARCHIVE = $(PROVISIONER_NAME)-$(subst _,-,$(ARCH))_$(PROVISIONER_VERSION)
 PROVISIONER_URL = https://github.com/radekg/terraform-provisioner-ansible/releases/download/$(PROVISIONER_VERSION)/$(PROVISIONER_ARCHIVE)
 
-all: deps secrets init-terraform
+all: requirements install-provider install-provisioner secrets init-terraform
 	@echo "Success!"
-
-deps: requirements plugins
 
 plugins: install-provider install-provisioner
 
 requirements:
 	ansible-galaxy install --ignore-errors --force -r ansible/requirements.yml
 
-install-unzip:
-	ifeq (, $(shell which unzip)) \
- 		$(error "No unzip in PATH, consider doing apt install unzip") \
- 	endif
+check-unzip:
+ifeq (, $(shell which unzip))
+	$(error "No unzip in PATH, consider doing apt install unzip")
+endif
 
-install-provider:
+install-provider: check-unzip
 	if [ ! -e $(PLUGIN_DIR)/$(ARCH)/$(PROVIDER_NAME)_$(PROVIDER_VERSION) ]; then \
 		mkdir -p $(PLUGIN_DIR); \
 		wget $(PROVIDER_URL) -P $(PLUGIN_DIR); \
@@ -68,4 +66,4 @@ alicloud_secret_key = \"$(shell pass cloud/Alibaba/secret-key)\"\n\
 " > terraform.tfvars
 
 cleanup:
-	rm -rf $(PLUGIN_DIR)/$(ARCHIVE)
+	rm -r $(PLUGIN_DIR)/$(ARCHIVE)
