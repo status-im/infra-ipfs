@@ -9,6 +9,7 @@ ipfs_api_exposed: true
 ipfs_api_exposed_paths:
   - /api/v0/id
   - /api/v0/add
+  - /api/v0/get
   - /api/v0/pin/add
   - /api/v0/pin/rm
   - /api/v0/pin/ls
