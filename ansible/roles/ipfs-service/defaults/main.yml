@@ -21,6 +21,7 @@ ipfs_epi_exposed_timeout: '600s'
 ipfs_api_exposed_max_body_size: '50m'
 ipfs_api_exposed_port: 2053
 ipfs_api_exposed_paths:
+  - /api/v0/id
   - /api/v0/object/get
 
 # available: critical, error, warning, info, debug
