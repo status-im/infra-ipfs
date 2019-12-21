@@ -15,6 +15,9 @@ ipfs_api_exposed_paths:
   - /api/v0/pin/ls
   - /api/v0/object/get
 
+# lower verbosity of logs
+ipfs_log_level: warning
+
 # allow all domains for CORS
 ipfs_config:
   'API.HTTPHeaders.Access-Control-Allow-Origin': ["*"]
