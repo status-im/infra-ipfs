@@ -5,9 +5,9 @@ provider "digitalocean" {
 }
 
 provider "cloudflare" {
-  email  = var.cloudflare_email
-  token  = var.cloudflare_token
-  org_id = var.cloudflare_org_id
+  email      = var.cloudflare_email
+  api_key    = var.cloudflare_token
+  account_id = var.cloudflare_account
 }
 
 provider "google" {
@@ -44,6 +44,21 @@ locals {
   dns_prefix = terraform.workspace == "prod" ? "" : "${terraform.workspace}-"
 }
 
+/* CF Zones ------------------------------------*/
+
+/* CloudFlare Zone IDs required for records */
+data "cloudflare_zones" "active" {
+  filter { status = "active" }
+}
+
+/* For easier access to zone ID by domain name */
+locals {
+  zones = {
+    for zone in data.cloudflare_zones.active.zones:
+      zone.name => zone.id
+  }
+}
+
 /* RESOURCES --------------------------------------*/
 
 module "ipfs" {
@@ -73,7 +88,7 @@ module "ipfs" {
 }
 
 resource "cloudflare_record" "ipfs" {
-  domain  = var.public_domain
+  zone_id = local.zones[var.public_domain]
   name    = "${terraform.workspace}-${var.env}"
   type    = "A"
   proxied = true
