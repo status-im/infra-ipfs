@@ -50,3 +50,4 @@
     content: "{{ ipfs_peers_rpc | join('\n') }}"
     owner: '{{ ipfs_cluster_host_uid }}'
     group: docker 
+  register: ipfs_peerstore

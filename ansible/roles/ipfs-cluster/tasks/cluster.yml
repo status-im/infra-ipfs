@@ -15,7 +15,7 @@
     restart_policy: always
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
-    restart: '{{ cont_restart }}'
+    restart: '{{ ipfs_peerstore.changed | default(cont_restart) }}'
     links:
       '{{ ipfs_cluster_service_cont }}:{{ ipfs_cluster_service_cont }}'
     env:
