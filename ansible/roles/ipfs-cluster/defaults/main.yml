@@ -9,12 +9,12 @@ ipfs_cluster_service_port: 5001
 ipfs_cluster_service_addr: '/dns4/{{ ipfs_cluster_service_cont | mandatory }}/tcp/{{ ipfs_cluster_service_port }}'
 
 # cluster specific settings
-ipfs_cluster_cont_tag: 'v0.10.1'
+ipfs_cluster_cont_tag: 'v0.12.1'
 ipfs_cluster_cont_image: 'ipfs/ipfs-cluster:{{ ipfs_cluster_cont_tag }}'
 ipfs_cluster_cont_name: 'ipfs-cluster'
 ipfs_cluster_cont_vol: '/docker/{{ ipfs_cluster_cont_name }}'
 ipfs_cluster_cont_uid: 1000
-ipfs_cluster_host_uid: '{{ 100000 + ipfs_cluster_cont_uid - 1 | int }}'
+ipfs_cluster_host_uid: '{{ 100000 + ipfs_cluster_cont_uid | int }}'
 
 # Cluster Admin API
 ipfs_cluster_admin_port: 5001

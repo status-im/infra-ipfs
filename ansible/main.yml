@@ -2,6 +2,6 @@
 - name: Configure IPFS cluster
   hosts: ipfs
   roles:
-    - { role: origin-cert,  tags: origin-cert }
+    - { role: origin-certs, tags: origin-certs }
     - { role: ipfs-service, tags: ipfs-service }
     - { role: ipfs-cluster, tags: ipfs-cluster }

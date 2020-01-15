@@ -1,0 +1,22 @@
+---
+- name: Create container directories
+  file:
+    path: '{{ ipfs_cluster_cont_vol }}/data'
+    owner: '{{ ipfs_cluster_host_uid }}'
+    group: docker 
+    recurse: true
+    state: directory
+
+# Creates service.json and identity.json.
+# Needs to be done first for Consul service metadata.
+- name: Generate config for container
+  docker_container:
+    name: '{{ ipfs_cluster_cont_name }}-config-gen'
+    image: '{{ ipfs_cluster_cont_image }}'
+    auto_remove: true
+    env:
+      CLUSTER_SECRET: '{{ ipfs_cluster_secret }}'
+      IPFS_API: '{{ ipfs_cluster_service_addr }}'
+    command: init --consensus=raft
+    volumes:
+      - '{{ ipfs_cluster_cont_vol }}/data:/data/ipfs-cluster'

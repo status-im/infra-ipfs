@@ -1,12 +1,4 @@
 ---
-- name: Create container directories
-  file:
-    path: '{{ ipfs_cluster_cont_vol }}/data'
-    owner: '{{ ipfs_cluster_host_uid }}'
-    group: docker 
-    recurse: true
-    state: directory
-
 - name: 'Start container: {{ ipfs_cluster_cont_name }}'
   docker_container:
     name: '{{ ipfs_cluster_cont_name }}'

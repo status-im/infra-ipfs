@@ -14,6 +14,7 @@ locals {
     }
     # For testing infra changes before rollout to other fleets
     test = {}
+    prod = {}
   }
 }
 

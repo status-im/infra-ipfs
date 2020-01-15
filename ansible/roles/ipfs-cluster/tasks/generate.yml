@@ -1,18 +1,43 @@
 ---
-- name: Check if IPFS config exists
-  stat:
-    path: '{{ ipfs_cluster_cont_vol }}/data/service.json'
-  register: ipfs_config
+- name: Get data centers
+  uri:
+    url: '{{ consul_catalog_url }}/datacenters'
+    return_content: true
+  register: data_centers
 
-- name: Generate config for container
+- name: Discover IPFS services
+  uri:
+    url: '{{ consul_catalog_url }}/service/{{ consul_service_name }}?dc={{ item }}'
+    return_content: true
+  register: ipfs_services_dcs
+  with_items: '{{ data_centers.json }}'
+
+- name: Combine data centers into one list
+  set_fact:
+    ipfs_services: '{{ ipfs_services_dcs.results | sum(attribute="json", start=[]) }}'
+
+- name: Extract service metadata
+  set_fact:
+    ipfs_services_meta: '{{ ipfs_services | map(attribute="ServiceMeta") | list }}'
+
+- name: Extract RCP addresses
+  set_fact:
+    ipfs_peers_rpc: |
+      {{ ipfs_services_meta
+      | rejectattr("ipfs_peer_id", "eq", ipfs_peer_id)
+      | map(attribute="ipfs_peer_rpc")
+      | list }}
+
+- name: Generate init config with peers
   docker_container:
     name: '{{ ipfs_cluster_cont_name }}-config-gen'
     image: '{{ ipfs_cluster_cont_image }}'
     auto_remove: true
     env:
+      CLUSTER_PEERNAME: '{{ hostname }}'
       CLUSTER_SECRET: '{{ ipfs_cluster_secret }}'
-      IPFS_API: '{{ ipfs_cluster_service_addr }}'
-    command: init
+      CLUSTER_IPFSPROXY_NODEMULTIADDRESS: '{{ ipfs_cluster_service_addr }}'
+      CLUSTER_IPFSHTTP_NODEMULTIADDRESS: '{{ ipfs_cluster_service_addr }}'
+    command: init -f --consensus=raft --peers={{ ipfs_peers_rpc | join(",") }}
     volumes:
       - '{{ ipfs_cluster_cont_vol }}/data:/data/ipfs-cluster'
-  when: not ipfs_config.stat.exists
