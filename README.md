@@ -12,8 +12,8 @@ For more details see ehese `README` files:
 
 |                     |                                   |
 |---------------------|-----------------------------------|
-| Public IPFS Gateway | https://test-ipfs.status.im/      |
-| Public IPFS API     | https://test-ipfs.status.im:2053/ |
+| Public IPFS Gateway | https://ipfs.status.im/      |
+| Public IPFS API     | https://ipfs.status.im:2053/ |
 
 # Repo Usage
 

@@ -89,7 +89,7 @@ module "ipfs" {
 
 resource "cloudflare_record" "ipfs" {
   zone_id = local.zones[var.public_domain]
-  name    = "${terraform.workspace}-${var.env}"
+  name    = "ipfs"
   type    = "A"
   proxied = true
   count   = length(module.ipfs.public_ips)
