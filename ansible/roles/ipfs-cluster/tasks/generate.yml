@@ -36,6 +36,7 @@
     env:
       CLUSTER_PEERNAME: '{{ hostname }}'
       CLUSTER_SECRET: '{{ ipfs_cluster_secret }}'
+      CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: '/ip4/0.0.0.0/tcp/{{ ipfs_cluster_rest_port }}'
       CLUSTER_IPFSPROXY_NODEMULTIADDRESS: '{{ ipfs_cluster_service_addr }}'
       CLUSTER_IPFSHTTP_NODEMULTIADDRESS: '{{ ipfs_cluster_service_addr }}'
     command: init -f --consensus=raft --peers={{ ipfs_peers_rpc | join(",") }}
