@@ -1,0 +1,15 @@
+---
+- name: IPFS Pinner | Install PIP
+  apt:
+    name: python3-pip
+
+- name: IPFS Pinner | Install Python deps
+  pip:
+    name: ipfscluster
+    executable: pip3
+
+- name: IPFS Pinner | Create the script
+  copy:
+    dest: '{{ ipfs_pinner_script_path }}'
+    src: ipfs_pinner.py
+    mode: '0755'
