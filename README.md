@@ -10,10 +10,10 @@ For more details see ehese `README` files:
 
 # Endpoints
 
-|                     |                                   |
-|---------------------|-----------------------------------|
-| Public IPFS Gateway | https://ipfs.status.im/      |
-| Public IPFS API     | https://ipfs.status.im:2053/ |
+|                     |                             |
+|---------------------|-----------------------------|
+| Public IPFS Gateway | https://ipfs.status.im/     |
+| Public IPFS API     | https://ipfs.status.im/api/ |
 
 # Repo Usage
 

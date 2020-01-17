@@ -1,5 +1,5 @@
 ---
-ipfs_cluster_domain: '{{ stage }}-{{ env }}.status.im'
+ipfs_cluster_domain: '{{ env }}.status.im'
 ipfs_cluster_secret:  '{{lookup("passwordstore", "service/ipfs-cluster/secret")}}'
 ipfs_cluster_service_cont: '{{ ipfs_cont_name }}'
 ipfs_cluster_service_port: '{{ ipfs_admin_port }}'

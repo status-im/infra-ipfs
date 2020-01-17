@@ -13,13 +13,30 @@ server {
   ssl_certificate_key /certs/origin.key;
 
   location / {
-    proxy_pass http://localhost:{{ ipfs_gateway_port }};
+    proxy_pass http://localhost:{{ ipfs_gateway_port }}/ipfs/;
     proxy_set_header Host $host;
     proxy_cache_bypass $http_upgrade;
+    add_header Cache-Control public,max-age=22896000;
   }
+
+  location /ipfs/ {
+    proxy_pass http://localhost:{{ ipfs_gateway_port }}/ipfs/;
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+    add_header Cache-Control public,max-age=22896000;
+  }
+
+  {% if ipfs_api_exposed %}
+  {% for path in ipfs_api_exposed_paths %}
+  location {{ path }} {
+    proxy_pass http://localhost:{{ ipfs_admin_port }};
+  }
+  {% endfor %}
+  {% endif %}
 }
 {% if ipfs_api_exposed %}
 
+# This is legacy and can probably be removed
 server {
   listen {{ ipfs_api_exposed_port }} ssl;
 
