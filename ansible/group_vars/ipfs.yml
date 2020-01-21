@@ -1,12 +1,17 @@
 ---
-ipfs_cluster_domain: '{{ env }}.status.im'
 ipfs_cluster_secret:  '{{lookup("passwordstore", "service/ipfs-cluster/secret")}}'
 ipfs_cluster_service_cont: '{{ ipfs_cont_name }}'
 ipfs_cluster_service_port: '{{ ipfs_admin_port }}'
 
+# Proxy
+ipfs_proxy_domain: '{{ env }}.status.im'
+ipfs_proxy_gateway_port: '{{ ipfs_gateway_port }}'
+# previously this used 'ipfs_admin_port' directly
+ipfs_proxy_admin_port: '{{ ipfs_cluster_proxy_port }}'
 # expose more api paths to allow adding and pinning
-ipfs_api_exposed: true
-ipfs_api_exposed_paths:
+ipfs_proxy_api_exposed: true
+# BE VERY CAREFUL WHAT YOU PUT HERE
+ipfs_proxy_api_exposed_paths:
   - /api/v0/id
   - /api/v0/add
   - /api/v0/get

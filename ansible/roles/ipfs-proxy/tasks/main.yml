@@ -1,0 +1,26 @@
+---
+- name: 'Template proxy config: {{ ipfs_proxy_domain }}'
+  template:
+    src: gateway.conf.j2
+    dest: '/etc/nginx/sites-available/{{ ipfs_proxy_domain }}.conf'
+  notify: reload nginx
+
+- name: 'Symlink proxy config: {{ ipfs_proxy_domain }}'
+  file:
+    src: '/etc/nginx/sites-available/{{ ipfs_proxy_domain }}.conf'
+    dest: '/etc/nginx/sites-enabled/{{ ipfs_proxy_domain }}.conf'
+    state: link
+  notify: reload nginx
+
+- name: Enable Swarm, HTTP & HTTPS ports
+  iptables:
+    action: insert
+    chain: DOCKER-USER
+    jump: ACCEPT
+    source: '0.0.0.0/0'
+    protocol: 'tcp'
+    comment: '{{ item.cmnt }}'
+    destination_port: '{{ item.port }}'
+  with_items:
+    - { cmnt: 'IPFS HTTP',  port: 80 }
+    - { cmnt: 'IPFS SSL',   port: 443 }

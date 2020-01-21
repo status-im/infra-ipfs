@@ -15,8 +15,6 @@ There are 3 ports exposed by the container:
 # Configuration
 
 ```yaml
-# will be used for configuring the nginx proxy
-ipfs_cluster_domain: ipfs.example.org
 # version of IPFS container to use
 ipfs_cont_tag: 'v0.4.20'
 # ipfs configuration adjustments

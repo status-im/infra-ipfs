@@ -5,4 +5,5 @@
     - { role: origin-certs, tags: origin-certs }
     - { role: ipfs-service, tags: ipfs-service }
     - { role: ipfs-cluster, tags: ipfs-cluster }
+    - { role: ipfs-proxy,   tags: ipfs-proxy }
     - { role: ipfs-pinner,  tags: ipfs-pinner }

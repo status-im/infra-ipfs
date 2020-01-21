@@ -23,7 +23,7 @@ ipfs_cluster_rest_addr: '0.0.0.0'
 ipfs_cluster_rest_port: 9094
 # port for cluster peer election viar raft
 ipfs_cluster_raft_port: 9096
-# WARNING: this port should never be public
+# WARNING: this port should never be entirely public
 ipfs_cluster_proxy_port: 9095
 
 # levels: critical, error, warning, info, debug

@@ -1,0 +1,16 @@
+---
+# will be used for configuring the nginx proxy
+ipfs_proxy_domain: ~
+# Underlying IPFS service ports
+ipfs_proxy_gateway_port: ~
+ipfs_proxy_admin_port: ~
+
+# for selective exposing some of the admin API
+ipfs_proxy_api_exposed: false
+ipfs_proxy_api_exposed_timeout: '600s'
+ipfs_proxy_api_exposed_max_body_size: '50m'
+ipfs_proxy_api_exposed_port: 2053
+ipfs_proxy_api_exposed_paths:
+  - /api/v0/id
+  - /api/v0/object/get
+
