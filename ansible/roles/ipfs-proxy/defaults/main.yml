@@ -5,6 +5,8 @@ ipfs_proxy_domain: ~
 ipfs_proxy_gateway_port: ~
 ipfs_proxy_admin_port: ~
 
+ipfs_proxy_site_path: '/var/www/ipfs'
+
 # for selective exposing some of the admin API
 ipfs_proxy_api_exposed: false
 ipfs_proxy_api_exposed_timeout: '600s'

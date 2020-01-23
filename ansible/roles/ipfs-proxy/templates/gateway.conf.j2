@@ -12,6 +12,11 @@ server {
   ssl_certificate     /certs/origin.crt;
   ssl_certificate_key /certs/origin.key;
 
+  location = / {
+    root {{ ipfs_proxy_site_path }};
+    try_files /index.html =404;
+  }
+
   location / {
     proxy_pass http://localhost:{{ ipfs_proxy_gateway_port }}/ipfs/;
     proxy_set_header Host $host;

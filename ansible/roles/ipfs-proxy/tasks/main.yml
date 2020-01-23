@@ -1,4 +1,18 @@
 ---
+- name: Create Directory for site files
+  file:
+    path: '{{ ipfs_proxy_site_path }}'
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: Copy over the index.html file
+  copy:
+    src: index.html
+    dest: '{{ ipfs_proxy_site_path }}/index.html'
+    owner: www-data
+    group: www-data
+
 - name: 'Template proxy config: {{ ipfs_proxy_domain }}'
   template:
     src: gateway.conf.j2
