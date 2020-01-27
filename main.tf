@@ -78,7 +78,7 @@ module "ipfs" {
   domain = var.hosts_domain
 
   /* firewall */
-  open_ports = [
+  open_tcp_ports = [
     "80", /* HTTP */
     "443", /* HTTPS */
     "4001", /* IPFS Swarm */
