@@ -1,0 +1,8 @@
+---
+node_apt_key_id: 68576280
+node_apt_key_url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
+node_apt_repo_url: 'https://deb.nodesource.com/node_12.x'
+
+yarn_apt_key_id: '72ECF46A56B4AD39C907BBB71646B01B86E50310'
+yarn_apt_key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+yarn_apt_repo_url: 'https://dl.yarnpkg.com/debian/'

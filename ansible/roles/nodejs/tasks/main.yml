@@ -1,0 +1,33 @@
+---
+- name: Add apt signing key for Node repo
+  apt_key:
+    id: '{{ node_apt_key_id | string }}'
+    url: '{{ node_apt_key_url }}'
+
+- name: Add apt repository for Node
+  apt_repository:
+    repo: 'deb {{ node_apt_repo_url }} {{ ansible_distribution_release }} main'
+    filename: nodesource
+
+- name: 'Add apt repository for Node 10 (sources)'
+  apt_repository:
+    repo: 'deb-src {{ node_apt_repo_url }} {{ ansible_distribution_release }} main'
+    filename: nodesource
+
+- name: Add Yarn apt key
+  apt_key:
+    id: '{{ yarn_apt_key_id | string }}'
+    url: '{{ yarn_apt_key_url }}'
+    state: present
+
+- name: Add Yarn apt repository
+  apt_repository:
+    repo: 'deb {{ yarn_apt_repo_url }} stable main'
+    state: present
+    update_cache: yes
+
+- name: 'Install Node.js and Yarn'
+  apt:
+    name:
+      - nodejs
+      - yarn
