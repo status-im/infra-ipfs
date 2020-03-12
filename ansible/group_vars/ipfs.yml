@@ -39,3 +39,7 @@ ipfs_storage_data: |
 ipfs_max_storage: |-
   {{ ((ipfs_storage_data["size_total"] / (10|pow(9))) * ipfs_storage_ratio)
   | round(0, "floor") | int }}GB
+
+# Syncing with TheGraph IPFS cluster
+ipfs_sync_src_url: 'http://localhost:{{ ipfs_cluster_proxy_port }}/'
+ipfs_sync_dest_url: 'https://api.thegraph.com/ipfs/'

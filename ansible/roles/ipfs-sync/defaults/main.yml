@@ -1,0 +1,13 @@
+---
+ipfs_sync_repo_url: 'https://github.com/graphprotocol/ipfs-sync.git'
+ipfs_sync_repo_rev: 'v0.1.4'
+ipfs_sync_repo_path: '/opt/ipfs-sync'
+
+# Required
+ipfs_sync_src_url: ~
+ipfs_sync_dest_url: ~
+
+ipfs_sync_cont_image: 'graphprotocol/ipfs-sync:latest'
+ipfs_sync_user: 'nobody'
+ipfs_sync_frequency: 'daily'
+ipfs_sync_timeout: 3600

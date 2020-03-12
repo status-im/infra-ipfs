@@ -1,0 +1,27 @@
+---
+- name: IPFS-Sync | Clone tool repo
+  git:
+    repo: '{{ ipfs_sync_repo_url }}'
+    dest: '{{ ipfs_sync_repo_path }}'
+    version: '{{ ipfs_sync_repo_rev }}'
+
+- name: IPFS-Sync | Install dependencies
+  yarn:
+    path: '{{ ipfs_sync_repo_path }}'
+
+- name: IPFS-Sync | Setup service & timer
+  include_role: name=systemd-timer
+  vars:
+    systemd_timer_name: ipfs-sync
+    systemd_timer_description: 'IPFS-Sync for syncing clusters'
+    systemd_timer_user: '{{ ipfs_sync_user }}'
+    systemd_timer_frequency: '{{ ipfs_sync_frequency }}'
+    systemd_timer_timeout_sec: '{{ ipfs_sync_timeout }}'
+    systemd_timer_requires_extra: 'network.target'
+    systemd_timer_start_on_creation: false
+    systemd_timer_script_content: |
+      #!/usr/bin/env bash
+      {{ ipfs_sync_repo_path }}/bin/ipfs-sync sync-files \
+          --skip-existing \
+          --from "{{ ipfs_sync_src_url | mandatory }}" \
+          --to "{{ ipfs_sync_dest_url | mandatory }}"
