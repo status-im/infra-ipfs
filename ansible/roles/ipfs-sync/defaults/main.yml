@@ -7,7 +7,7 @@ ipfs_sync_repo_path: '/opt/ipfs-sync'
 ipfs_sync_src_url: ~
 ipfs_sync_dest_url: ~
 
-ipfs_sync_cont_image: 'graphprotocol/ipfs-sync:latest'
+ipfs_sync_timer_enabled: true
 ipfs_sync_user: 'nobody'
 ipfs_sync_frequency: 'daily'
 ipfs_sync_timeout: 3600

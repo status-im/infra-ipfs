@@ -14,6 +14,7 @@
   vars:
     systemd_timer_name: ipfs-sync
     systemd_timer_description: 'IPFS-Sync for syncing clusters'
+    systemd_timer_enabled: '{{ ipfs_sync_timer_enabled }}'
     systemd_timer_user: '{{ ipfs_sync_user }}'
     systemd_timer_frequency: '{{ ipfs_sync_frequency }}'
     systemd_timer_timeout_sec: '{{ ipfs_sync_timeout }}'
