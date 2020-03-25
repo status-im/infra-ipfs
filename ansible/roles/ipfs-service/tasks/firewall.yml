@@ -10,15 +10,3 @@
     destination_port: '{{ ipfs_swarm_port }}' 
   notify:
     - Save iptables rules
-
-- name: Enable exposing API via proxy
-  iptables:
-    chain: INPUT
-    jump: ACCEPT
-    source: '0.0.0.0/0'
-    protocol: 'tcp'
-    comment: 'IPFS API Proxy'
-    destination_port: '{{ ipfs_api_exposed_port }}'
-  notify:
-    - Save iptables rules
-  when: ipfs_api_exposed
