@@ -25,6 +25,8 @@ ipfs_cluster_rest_port: 9094
 ipfs_cluster_raft_port: 9096
 # WARNING: this port should never be entirely public
 ipfs_cluster_proxy_port: 9095
+# port for prometheus metrics
+ipfs_cluster_metrics_port: 9097
 
 # levels: critical, error, warning, info, debug
 ipfs_cluster_log_level: 'warning'

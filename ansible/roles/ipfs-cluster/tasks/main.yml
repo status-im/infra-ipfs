@@ -2,5 +2,5 @@
 - import_tasks: init.yml
 - import_tasks: consul.yml
 - import_tasks: generate.yml
-- import_tasks: cluster.yml
+- import_tasks: container.yml
 - import_tasks: firewall.yml

@@ -11,12 +11,14 @@
     links:
       '{{ ipfs_cluster_service_cont }}:{{ ipfs_cluster_service_cont }}'
     env:
-      IPFS_LOGGING_FMT: nocolor
+      IPFS_LOGGING_FMT: 'nocolor'
+      IPFS_CLUSTER_PATH: '/data/ipfs-cluster'
     command: daemon --upgrade
     ports:
       - '127.0.0.1:5002:{{ ipfs_cluster_admin_port }}/tcp'
       - '{{ ipfs_cluster_rest_port }}:{{ ipfs_cluster_rest_port }}/tcp'
       - '{{ ipfs_cluster_raft_port }}:{{ ipfs_cluster_raft_port }}/tcp'
       - '{{ ipfs_cluster_proxy_port }}:{{ ipfs_cluster_proxy_port }}/tcp'
+      - '{{ ipfs_cluster_metrics_port }}:{{ ipfs_cluster_metrics_port }}/tcp'
     volumes:
       - '{{ ipfs_cluster_cont_vol }}/data:/data/ipfs-cluster'

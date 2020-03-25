@@ -28,18 +28,29 @@
       | map(attribute="ipfs_peer_rpc")
       | list }}
 
+# Without this init fails with: cannot acquire lock
+- name: 'Stop container: {{ ipfs_cluster_cont_name }}'
+  docker_container:
+    name: '{{ ipfs_cluster_cont_name }}'
+    state: 'stopped'
+
 - name: Generate init config with peers
   docker_container:
     name: '{{ ipfs_cluster_cont_name }}-config-gen'
     image: '{{ ipfs_cluster_cont_image }}'
     auto_remove: true
     env:
+      IPFS_CLUSTER_PATH: '/data/ipfs-cluster'
       CLUSTER_PEERNAME: '{{ hostname }}'
       CLUSTER_SECRET: '{{ ipfs_cluster_secret }}'
       CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: '/ip4/0.0.0.0/tcp/{{ ipfs_cluster_rest_port }}'
       CLUSTER_IPFSPROXY_LISTENMULTIADDRESS: '/ip4/0.0.0.0/tcp/{{ ipfs_cluster_proxy_port }}'
       CLUSTER_IPFSPROXY_NODEMULTIADDRESS: '{{ ipfs_cluster_service_addr }}'
       CLUSTER_IPFSHTTP_NODEMULTIADDRESS: '{{ ipfs_cluster_service_addr }}'
-    command: init -f --consensus=raft --peers={{ ipfs_peers_rpc | join(",") }}
+      # Metrics
+      CLUSTER_METRICS_ENABLESTATS: 'true'
+      CLUSTER_METRICS_PROMETHEUSENDPOINT: '/ip4/0.0.0.0/tcp/{{ ipfs_cluster_metrics_port }}'
+      CLUSTER_METRICS_REPORTINGINTERVAL: '30s'
+    command: init --force --consensus=raft --peers={{ ipfs_peers_rpc | join(",") }}
     volumes:
       - '{{ ipfs_cluster_cont_vol }}/data:/data/ipfs-cluster'

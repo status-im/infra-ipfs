@@ -30,5 +30,15 @@
             type: http
             http: 'http://localhost:{{ ipfs_cluster_rest_port }}/id'
 
+      - name: '{{ consul_service_name }}-metrics'
+        tags: ['ipfs', 'metrics']
+        port: '{{ ipfs_cluster_metrics_port }}'
+        address: '{{ ansible_local.tinc.vpn_ip }}'
+        checks:
+          - id: '{{ ipfs_cluster_cont_name }}-status'
+            name: IPFS Cluster Metrics Healthcheck
+            type: http
+            http: 'http://localhost:{{ ipfs_cluster_metrics_port }}/id'
+
 - name: Reload consul
   command: 'consul reload'
