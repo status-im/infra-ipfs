@@ -18,3 +18,7 @@
 - name: systemd-timer
   src: git@github.com:status-im/infra-role-systemd-timer.git
   scm: git
+
+- name: nginx-metrics
+  src: git@github.com:status-im/infra-role-nginx-metrics.git
+  scm: git

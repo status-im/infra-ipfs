@@ -15,4 +15,3 @@ ipfs_proxy_api_exposed_port: 2053
 ipfs_proxy_api_exposed_paths:
   - /api/v0/id
   - /api/v0/object/get
-
