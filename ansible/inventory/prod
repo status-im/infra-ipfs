@@ -3,12 +3,17 @@
 [all]
 node-01.gc-us-central1-a.ipfs.prod hostname=node-01.gc-us-central1-a.ipfs.prod ansible_host=34.66.171.126 env=ipfs stage=prod data_center=gc-us-central1-a region=us-central1-a dns_entry=node-01.gc-us-central1-a.ipfs.prod.statusim.net
 node-02.gc-us-central1-a.ipfs.prod hostname=node-02.gc-us-central1-a.ipfs.prod ansible_host=35.188.29.25 env=ipfs stage=prod data_center=gc-us-central1-a region=us-central1-a dns_entry=node-02.gc-us-central1-a.ipfs.prod.statusim.net
+sync-01.gc-us-central1-a.ipfs.prod hostname=sync-01.gc-us-central1-a.ipfs.prod ansible_host=35.224.247.28 env=ipfs stage=prod data_center=gc-us-central1-a region=us-central1-a dns_entry=sync-01.gc-us-central1-a.ipfs.prod.statusim.net
 
 [gc-us-central1-a]
 node-01.gc-us-central1-a.ipfs.prod
 node-02.gc-us-central1-a.ipfs.prod
+sync-01.gc-us-central1-a.ipfs.prod
 
 [ipfs]
 node-01.gc-us-central1-a.ipfs.prod
 node-02.gc-us-central1-a.ipfs.prod
+
+[sync]
+sync-01.gc-us-central1-a.ipfs.prod
 
