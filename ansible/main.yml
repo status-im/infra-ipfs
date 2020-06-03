@@ -10,3 +10,10 @@
     - { role: ipfs-pinner,   tags: ipfs-pinner }
     - { role: ipfs-sync,     tags: ipfs-sync }
     - { role: nginx-metrics, tags: nginx-metrics }
+
+- name: Configure Packer Sync node
+  hosts: sync
+  roles:
+    - { role: infra-role-geth,          tags: infra-role-geth }
+    - { role: infra-role-geth-exporter, tags: infra-role-geth-exporter }
+    #- { role: sticker-pinner,           tags: sticker-pinner }

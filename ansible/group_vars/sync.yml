@@ -1,0 +1,7 @@
+---
+geth_port: 30303
+geth_sync_mode: 'light'
+geth_log_level_name: 'info'
+geth_account_pass: 'doesnt-matter'
+geth_cont_name: 'geth'
+geth_source_cont_name: '{{ geth_cont_name }}'
