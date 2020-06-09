@@ -21,7 +21,7 @@ ipfs_proxy_api_exposed_paths:
   - /api/v0/object/get
 
 # lower verbosity of logs
-ipfs_log_level: warning
+ipfs_log_level: warn
 
 # allow all domains for CORS
 ipfs_config:
