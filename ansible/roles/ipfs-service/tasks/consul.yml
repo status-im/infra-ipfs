@@ -12,4 +12,5 @@
           - id: '{{ ipfs_cluster_cont_name }}-status'
             name: IPFS Healthcheck
             type: http
+            method: POST
             http: 'http://localhost:{{ ipfs_admin_port }}/api/v0/repo/stat'

@@ -1,6 +1,6 @@
 ---
 # ipfs specific settings
-ipfs_cont_tag: 'v0.4.22'
+ipfs_cont_tag: 'v0.5.1'
 ipfs_cont_image: 'ipfs/go-ipfs:{{ ipfs_cont_tag }}'
 ipfs_cont_name: 'ipfs-service'
 ipfs_cont_vol: '/docker/{{ ipfs_cont_name }}'
@@ -12,7 +12,7 @@ ipfs_swarm_port: 4001
 # this is the port that exposes IPFS resources and some R/O APi
 ipfs_gateway_port: 8080
 
-# available: critical, error, warning, info, debug
+# available: debug, info, warn, error, dpanic, panic, fatal
 ipfs_log_level: info
 
 # hard storage limit
