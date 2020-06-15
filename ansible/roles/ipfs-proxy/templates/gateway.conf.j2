@@ -12,6 +12,11 @@ server {
   ssl_certificate     /certs/origin.crt;
   ssl_certificate_key /certs/origin.key;
 
+  # Fix uploads of big files
+  proxy_request_buffering off;
+  proxy_buffering off;
+  proxy_http_version 1.1;
+
   location = / {
     root {{ ipfs_proxy_site_path }};
     try_files /index.html =404;
@@ -33,6 +38,7 @@ server {
 
   {% if ipfs_proxy_api_exposed %}
   {% for path in ipfs_proxy_api_exposed_paths %}
+
   location {{ path }} {
     proxy_pass http://localhost:{{ ipfs_proxy_admin_port }};
   }
@@ -58,6 +64,7 @@ server {
   client_max_body_size {{ ipfs_proxy_api_exposed_max_body_size }};
 
   {% for path in ipfs_proxy_api_exposed_paths %}
+
   location {{ path }} {
     proxy_pass http://localhost:{{ ipfs_proxy_admin_port }};
   }
