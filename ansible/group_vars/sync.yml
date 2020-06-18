@@ -3,8 +3,20 @@
 swap_file_size_mb: 2048
 
 geth_port: 30303
+geth_rpc_port: 8545
 geth_sync_mode: 'light'
 geth_log_level_name: 'info'
 geth_account_pass: 'doesnt-matter'
 geth_cont_name: 'geth'
 geth_source_cont_name: '{{ geth_cont_name }}'
+
+# Auto Sticker Pinner service
+auto_sticker_pinner_contract: '0x0577215622f43a39F4Bc9640806DFea9b10D2A36'
+auto_sticker_pinner_events: 'ContenthashChanged,Register'
+auto_sticker_pinner_log_level: 'INFO'
+auto_sticker_pinner_pin_all: true
+
+auto_sticker_pinner_geth_cont_name: '{{ geth_cont_name }}'
+auto_sticker_pinner_geth_cont_port: '{{ geth_rpc_port }}'
+
+auto_sticker_pinner_ipfs_cluster_service: 'ipfs-cluster'

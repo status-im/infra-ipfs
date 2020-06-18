@@ -17,4 +17,4 @@
     - { role: swap-file,                tags: swap-file }
     - { role: infra-role-geth,          tags: infra-role-geth }
     - { role: infra-role-geth-exporter, tags: infra-role-geth-exporter }
-    #- { role: sticker-pinner,           tags: sticker-pinner }
+    - { role: auto-sticker-pinner,      tags: auto-sticker-pinner }

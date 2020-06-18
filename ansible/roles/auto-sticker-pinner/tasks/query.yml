@@ -1,0 +1,12 @@
+---
+- name: Discover IPFS services
+  uri:
+    url: '{{ consul_catalog_url }}/service/{{ auto_sticker_pinner_ipfs_cluster_service }}'
+    return_content: true
+  register: ipfs_cluster_services
+
+# TODO: Possibly use MultiAddr format to use all addresses, not just first.
+- name: Combine data centers into one list
+  set_fact:
+    ipfs_cluster_addr: '{{ ipfs_cluster_services.json[0]["ServiceAddress"] }}'
+    ipfs_cluster_port: '{{ ipfs_cluster_services.json[0]["ServicePort"] }}'

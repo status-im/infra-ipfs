@@ -1,0 +1,21 @@
+---
+- name: 'Start container: {{ auto_sticker_pinner_cont_name }}'
+  docker_container:
+    name: '{{ auto_sticker_pinner_cont_name }}'
+    image: '{{ auto_sticker_pinner_cont_image }}'
+    pull: true
+    restart_policy: always
+    state: '{{ cont_state }}'
+    recreate: '{{ cont_recreate }}'
+    restart: '{{ cont_restart }}'
+    links:
+      '{{ auto_sticker_pinner_geth_cont_name }}:geth'
+    command: |
+      {% if auto_sticker_pinner_pin_all %}
+      --pin-all
+      {% endif %}
+      --geth-addr=http://geth:{{ auto_sticker_pinner_geth_cont_port }}/
+      --ipfs-addr=/dns/{{ ipfs_cluster_addr }}/tcp/{{ ipfs_cluster_port }}/http
+      --log-level={{ auto_sticker_pinner_log_level }}
+      --contract={{ auto_sticker_pinner_contract }}
+      --events={{ auto_sticker_pinner_events }}

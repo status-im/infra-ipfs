@@ -1,0 +1,4 @@
+---
+- import_tasks: query.yml
+- import_tasks: container.yml
+- import_tasks: consul.yml

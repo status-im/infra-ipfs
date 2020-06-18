@@ -1,0 +1,8 @@
+---
+- name: Create Consul service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ auto_sticker_pinner_cont_name }}'
+    consul_services:
+      - name: '{{ auto_sticker_pinner_cont_name }}'
+        tags: ['ipfs', 'stickerpack', 'pinner']
