@@ -9,7 +9,7 @@ For details on how to use IPFS you can read about:
 
 # Public Admin API
 
-Some of the Admin API calls are exposed to the public on the `2053` port:
+Some of the Admin API calls are exposed to the public under the `/api` path.
 
 * [`/api/v0/id`](https://docs.ipfs.io/reference/api/http/#api-v0-id) - Show ipfs node id info.
 * [`/api/v0/get`](https://docs.ipfs.io/reference/api/http/#api-v0-get) - Download IPFS objects.
@@ -32,18 +32,18 @@ Here's an example of uploading and pinning a file.
    $ echo "sup my dude" > hello
   ```
 
-2. Upload the file using part of API exposed on port `2053`:
+2. Upload the file using part of API exposed under `/api`:
   ```
-   $ curl -F file=@hello 'https://test-ipfs.status.im:2053/api/v0/add?pin=true'                                     
+   $ curl -F file=@hello 'https://ipfs.status.im/api/v0/add?pin=true'                                     
   {"Name":"hello","Hash":"QmZdER7pR3S4NCri89kf5qVEZfDWvFSwLEYyAWRWdwQgHt","Size":"20"}
   ```
 
 3. Check availability of the file using the `object/get` call:
   ```
-   $ curl -s 'https://test-ipfs.status.im:2053/api/v0/object/get?arg=QmZdER7pR3S4NCri89kf5qVEZfDWvFSwLEYyAWRWdwQgHt'
+   $ curl -s 'https://ipfs.status.im/api/v0/object/get?arg=QmZdER7pR3S4NCri89kf5qVEZfDWvFSwLEYyAWRWdwQgHt'
   {"Links":[],"Data":"\u0008\u0002\u0012\u000csup my dude\n\u0018\u000c"} 
   ```
 
 That file should now be available via the public gateway:
 
-https://test-ipfs.status.im/ipfs/QmZdER7pR3S4NCri89kf5qVEZfDWvFSwLEYyAWRWdwQgHt
+https://ipfs.status.im/ipfs/QmZdER7pR3S4NCri89kf5qVEZfDWvFSwLEYyAWRWdwQgHt
