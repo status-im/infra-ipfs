@@ -8,6 +8,9 @@
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
+    # enable automatic container updates
+    labels:
+      com.centurylinklabs.watchtower.enable: 'true' 
     links:
       '{{ auto_sticker_pinner_geth_cont_name }}:geth'
     command: |
