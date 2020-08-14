@@ -8,9 +8,9 @@ module "ipfs" {
   group = "ipfs"
 
   /* scaling options */
-  host_count = local.ws["hosts_count"]
-  type       = "n1-standard-2"
-  vol_size   = 50
+  host_count    = local.ws["hosts_count"]
+  type          = "n1-standard-2"
+  root_vol_size = 50
 
   /* general */
   env    = var.env

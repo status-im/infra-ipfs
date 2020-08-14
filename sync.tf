@@ -8,9 +8,9 @@ module "sync" {
   group = "sync"
 
   /* scaling options */
-  host_count = 1
-  type       = "n1-standard-1"
-  vol_size   = 30
+  host_count    = 1
+  type          = "n1-standard-1"
+  root_vol_size = 30
 
   /* general */
   env    = var.env
