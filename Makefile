@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 OS = $(strip $(shell uname -s))
 ARCH = linux_amd64
 ifeq ($(OS),Darwin)
@@ -21,11 +19,6 @@ plugins: install-provisioner
 requirements:
 	ansible-galaxy install --ignore-errors --force -r ansible/requirements.yml
 
-check-unzip:
-ifeq (, $(shell which unzip))
-	$(error "No unzip in PATH, consider doing apt install unzip")
-endif
-
 install-provisioner:
 	if [ ! -e $(PLUGIN_DIR)/$(ARCH)/$(PROVISIONER_NAME)_$(PROVISIONER_VERSION) ]; then \
 		mkdir -p $(PLUGIN_DIR); \
@@ -41,17 +34,6 @@ secrets:
 	pass services/consul/ca-key > ansible/files/consul-ca.key
 	pass services/consul/client-crt > ansible/files/consul-client.crt
 	pass services/consul/client-key > ansible/files/consul-client.key
-	pass cloud/GoogleCloud/json > google-cloud.json
-	echo "Saving secrets to: terraform.tfvars"
-	@echo "\
-# secrets extracted from password-store\n\
-cloudflare_token    = \"$(shell pass cloud/Cloudflare/token)\"\n\
-cloudflare_email    = \"$(shell pass cloud/Cloudflare/email)\"\n\
-cloudflare_account  = \"$(shell pass cloud/Cloudflare/account_id)\"\n\
-digitalocean_token  = \"$(shell pass cloud/DigitalOcean/token)\"\n\
-alicloud_access_key = \"$(shell pass cloud/Alibaba/access-key)\"\n\
-alicloud_secret_key = \"$(shell pass cloud/Alibaba/secret-key)\"\n\
-" > terraform.tfvars
 
 cleanup:
 	rm -r $(PLUGIN_DIR)/$(ARCHIVE)

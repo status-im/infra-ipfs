@@ -21,5 +21,9 @@ terraform {
       source  = "nbering/ansible"
       version = " = 1.0.4"
     }
+    pass = {
+      source  = "camptocamp/pass"
+      version = " = 1.4.0"
+    }
   }
 }
