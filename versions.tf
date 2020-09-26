@@ -7,7 +7,7 @@ terraform {
     }
     google = {
       source  = "hashicorp/google"
-      version = " = 3.37.0"
+      version = " = 3.40.0"
     }
     alicloud = {
       source  = "aliyun/alicloud"
