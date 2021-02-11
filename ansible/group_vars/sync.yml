@@ -9,6 +9,7 @@ geth_log_level_name: 'info'
 geth_account_pass: 'doesnt-matter'
 geth_cont_name: 'geth'
 geth_source_cont_name: '{{ geth_cont_name }}'
+geth_cont_mem_ratio: 0.8
 
 # Auto Sticker Pinner service
 auto_sticker_pinner_contract: '0x0577215622f43a39F4Bc9640806DFea9b10D2A36'
