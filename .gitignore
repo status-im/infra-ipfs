@@ -1,6 +1,6 @@
 .envrc
 .terraform/
-.terraform/environment
+.terraform.lock.hcl
 terraform.tfstate.d/
 *.tfstate
 *.tfstate.backup
