@@ -1,33 +1,35 @@
 OS = $(strip $(shell uname -s))
-ARCH = linux_amd64
+
 ifeq ($(OS),Darwin)
-	ARCH = darwin_amd64
+ARCH = darwin_amd64
+PROVISIONER_MD5SUM = 42b93081b1ca548e821020949606eed7
+else
+ARCH = linux_amd64
+PROVISIONER_MD5SUM = 34a6ce3491a5cde370e466a31f6c1f07
 endif
 
-PLUGIN_DIR = ~/.terraform.d/plugins
+TF_PLUGINS_DIR = $(HOME)/.terraform.d/plugins
 
 PROVISIONER_NAME = terraform-provisioner-ansible
-PROVISIONER_VERSION = v2.3.0
+PROVISIONER_VERSION = v2.5.0
 PROVISIONER_ARCHIVE = $(PROVISIONER_NAME)-$(subst _,-,$(ARCH))_$(PROVISIONER_VERSION)
 PROVISIONER_URL = https://github.com/radekg/terraform-provisioner-ansible/releases/download/$(PROVISIONER_VERSION)/$(PROVISIONER_ARCHIVE)
+PROVISIONER_PATH = $(TF_PLUGINS_DIR)/$(ARCH)/$(PROVISIONER_NAME)_$(PROVISIONER_VERSION)
 
 all: requirements install-provisioner secrets init-terraform
 	@echo "Success!"
 
-plugins: install-provisioner
-
 requirements:
 	ansible-galaxy install --ignore-errors --force -r ansible/requirements.yml
 
-install-provisioner:
-	if [ ! -e $(PLUGIN_DIR)/$(ARCH)/$(PROVISIONER_NAME)_$(PROVISIONER_VERSION) ]; then \
-		mkdir -p $(PLUGIN_DIR); \
-		wget $(PROVISIONER_URL) -O $(PLUGIN_DIR)/$(ARCH)/$(PROVISIONER_NAME)_$(PROVISIONER_VERSION); \
-		chmod +x $(PLUGIN_DIR)/$(ARCH)/$(PROVISIONER_NAME)_$(PROVISIONER_VERSION); \
-	fi
+$(PROVISIONER_PATH):
+	@mkdir -p $(TF_PLUGINS_DIR)/$(ARCH); \
+	wget -q $(PROVISIONER_URL) -O $(PROVISIONER_PATH); \
+	chmod +x $(PROVISIONER_PATH); \
 
-init-terraform:
-	terraform init -upgrade=true
+install-provisioner: $(PROVISIONER_PATH)
+	@echo "$(PROVISIONER_MD5SUM)  $(PROVISIONER_PATH)" | md5sum -c \
+		|| rm -v $(PROVISIONER_PATH)
 
 secrets:
 	pass services/consul/ca-crt > ansible/files/consul-ca.crt
@@ -35,5 +37,8 @@ secrets:
 	pass services/consul/client-crt > ansible/files/consul-client.crt
 	pass services/consul/client-key > ansible/files/consul-client.key
 
+init-terraform:
+	terraform init -upgrade=true
+
 cleanup:
-	rm -r $(PLUGIN_DIR)/$(ARCHIVE)
+	rm -r $(TF_PLUGINS_DIR)/$(ARCHIVE)
