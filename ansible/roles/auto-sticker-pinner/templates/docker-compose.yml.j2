@@ -1,0 +1,19 @@
+---
+version: '3.7'
+services:
+  pinner:
+    container_name: '{{ auto_sticker_pinner_cont_name }}'
+    image: '{{ auto_sticker_pinner_cont_image }}'
+    restart: always
+    # enable automatic container updates
+    labels:
+      com.centurylinklabs.watchtower.enable: 'true' 
+    command: |
+{% if auto_sticker_pinner_pin_all %}
+      --pin-all
+{% endif %}
+      --geth-addr=http://geth:{{ auto_sticker_pinner_geth_rpc_port }}/
+      --ipfs-addr=/dns/{{ ipfs_cluster_addr }}/tcp/{{ ipfs_cluster_port }}/http
+      --log-level={{ auto_sticker_pinner_log_level }}
+      --contract={{ auto_sticker_pinner_contract }}
+      --events={{ auto_sticker_pinner_events }}

@@ -1,20 +1,18 @@
 ---
+auto_sticker_pinner_service_name: 'auto-sticker'
+auto_sticker_pinner_service_path: '/docker/{{ auto_sticker_pinner_service_name }}'
+auto_sticker_pinner_compose_path: '{{ auto_sticker_pinner_service_path }}/docker-compose.pinner.yml'
+
 auto_sticker_pinner_cont_tag: 'deploy'
 auto_sticker_pinner_cont_image: 'statusteam/auto-sticker-pinner:{{ auto_sticker_pinner_cont_tag }}'
-auto_sticker_pinner_cont_name: 'auto-sticker-pinner'
+auto_sticker_pinner_cont_name: '{{ auto_sticker_pinner_service_name }}-pinner'
 
 auto_sticker_pinner_contract: '0x0577215622f43a39F4Bc9640806DFea9b10D2A36'
 auto_sticker_pinner_events: 'ContenthashChanged,Register'
 auto_sticker_pinner_log_level: 'INFO'
 
-# generic container settings
-cont_state: started
-cont_recreate: false
-cont_restart: false
-
 # Name of Geth container
-auto_sticker_pinner_geth_cont_name: ~
-auto_sticker_pinner_geth_cont_port: ~
+auto_sticker_pinner_geth_rpc_port: ~
 
 # Name of IPFS Cluster service in Consul
 auto_sticker_pinner_ipfs_cluster_service: ~
@@ -22,3 +20,8 @@ auto_sticker_pinner_ipfs_cluster_service: ~
 # Consul query variables
 consul_catalog_url: 'http://localhost:8500/v1/catalog'
 consul_service_name: '{{ ipfs_cluster_cont_name }}'
+
+# general container management
+compose_recreate: 'smart'
+compose_state: 'present'
+compose_restart: false

@@ -1,24 +1,24 @@
 ---
-- name: 'Start container: {{ auto_sticker_pinner_cont_name }}'
-  docker_container:
-    name: '{{ auto_sticker_pinner_cont_name }}'
-    image: '{{ auto_sticker_pinner_cont_image }}'
-    pull: true
-    restart_policy: always
-    state: '{{ cont_state }}'
-    recreate: '{{ cont_recreate }}'
-    restart: '{{ cont_restart }}'
-    # enable automatic container updates
-    labels:
-      com.centurylinklabs.watchtower.enable: 'true' 
-    links:
-      '{{ auto_sticker_pinner_geth_cont_name }}:geth'
-    command: |
-      {% if auto_sticker_pinner_pin_all %}
-      --pin-all
-      {% endif %}
-      --geth-addr=http://geth:{{ auto_sticker_pinner_geth_cont_port }}/
-      --ipfs-addr=/dns/{{ ipfs_cluster_addr }}/tcp/{{ ipfs_cluster_port }}/http
-      --log-level={{ auto_sticker_pinner_log_level }}
-      --contract={{ auto_sticker_pinner_contract }}
-      --events={{ auto_sticker_pinner_events }}
+- name: Create compose file
+  template:
+    src: 'docker-compose.yml.j2'
+    dest: '{{ auto_sticker_pinner_compose_path }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode: 0640
+
+# Take into account additional docker-compose.yml files.
+- name: Find all Docker Compose files
+  find:
+    paths: '{{ auto_sticker_pinner_service_path }}'
+    patterns: 'docker-compose*.yml'
+    recurse: false
+  register: found_compose
+
+- name: Create containers
+  docker_compose:
+    project_src: '{{ auto_sticker_pinner_service_path }}'
+    files: '{{ found_compose.files | map(attribute="path") | list }}'
+    state: '{{ compose_state }}'
+    restarted: '{{ compose_restart }}'
+    recreate: '{{ compose_recreate | default("smart") }}'
