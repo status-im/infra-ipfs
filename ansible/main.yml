@@ -10,6 +10,7 @@
     - { role: ipfs-pinner,   tags: ipfs-pinner }
     - { role: ipfs-sync,     tags: ipfs-sync }
     - { role: nginx-metrics, tags: nginx-metrics }
+    - { role: open-ports,    tags: open-ports }
 
 - name: Configure Packer Sync node
   hosts: sync

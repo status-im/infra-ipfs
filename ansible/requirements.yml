@@ -11,6 +11,10 @@
   src: git@github.com:status-im/infra-role-bootstrap.git
   scm: git
 
+- name: open-ports
+  src: git@github.com:status-im/infra-role-open-ports.git
+  scm: git
+
 - name: consul-service
   src: git@github.com:status-im/infra-role-consul-service.git
   scm: git

@@ -51,3 +51,7 @@ ipfs_max_storage: |-
 ipfs_sync_timer_enabled: '{{ (hostname.split(".")|first) == "node-01" }}'
 ipfs_sync_src_url: 'http://localhost:{{ ipfs_cluster_proxy_port }}/'
 ipfs_sync_dest_url: 'https://api.thegraph.com/ipfs/'
+
+# Open Nginx Ports
+open_ports_default_comment: 'HTTP & HTTPS'
+open_ports_list: [ {port: 80}, {port: 443} ]
