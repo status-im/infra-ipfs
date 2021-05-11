@@ -6,7 +6,7 @@ origin_certs:
     key: '{{lookup("passwordstore", "cloud/Cloudflare/status.im/origin.key returnall=true")}}'
     default: true
 
-ipfs_cluster_secret:  '{{lookup("passwordstore", "service/ipfs-cluster/secret")}}'
+ipfs_cluster_secret:  '{{lookup("passwordstore", "services/ipfs-cluster/secret")}}'
 ipfs_cluster_service_cont: '{{ ipfs_cont_name }}'
 ipfs_cluster_service_port: '{{ ipfs_admin_port }}'
 
