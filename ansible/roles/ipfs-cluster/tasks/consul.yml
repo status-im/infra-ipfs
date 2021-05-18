@@ -33,7 +33,7 @@
       - name: '{{ consul_service_name }}-metrics'
         tags: ['ipfs', 'metrics']
         port: '{{ ipfs_cluster_metrics_port }}'
-        address: '{{ ansible_local.tinc.vpn_ip }}'
+        address: '{{ ansible_local.wireguard.vpn_ip }}'
         checks:
           - id: '{{ ipfs_cluster_cont_name }}-status'
             name: IPFS Cluster Metrics Healthcheck

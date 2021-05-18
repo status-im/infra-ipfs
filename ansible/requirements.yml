@@ -1,17 +1,12 @@
 ---
-- name: origin-cert
+- name: origin-certs
   src: git@github.com:status-im/infra-role-origin-certs.git
   version: f7dcb7e1944d2ec0655bf8e7ce6f45a1317b65b9
   scm: git
 
-- name: infra-role-tinc
-  src: git@github.com:status-im/infra-role-tinc.git
-  version: bca648485def8e7a34ed5403bbaf403a2537279a
-  scm: git
-
 - name: infra-role-bootstrap
   src: git@github.com:status-im/infra-role-bootstrap.git
-  version: 244ed6a740d6c20250024de9ae1a0232d71b1f57
+  version: 4dfd3e0b32a93e1f07a73c6794684bae21f2e556
   scm: git
 
 - name: open-ports
@@ -31,12 +26,12 @@
 
 - name: nginx-metrics
   src: git@github.com:status-im/infra-role-nginx-metrics.git
-  version: b888cb6fb8badb0ce69e19892e543f1236375205
+  version: 2732384f14706cfc3dd40f618b6a3eda71d3d6db
   scm: git
 
 - name: infra-role-geth
   src: git@github.com:status-im/infra-role-geth.git
-  version: f76e6f37792dc39302d175017f79a4711ecf33df
+  version: c3b51f0799061cd3b0e6d4f1db1182c00d71e944
   scm: git
 
 - name: infra-role-geth-exporter
