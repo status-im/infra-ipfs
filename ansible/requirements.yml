@@ -6,7 +6,7 @@
 
 - name: infra-role-bootstrap
   src: git@github.com:status-im/infra-role-bootstrap.git
-  version: 4dfd3e0b32a93e1f07a73c6794684bae21f2e556
+  version: c9bdc2ba10127cbcde8c0d66e9120bbee81e7e99
   scm: git
 
 - name: open-ports
@@ -31,12 +31,12 @@
 
 - name: infra-role-geth
   src: git@github.com:status-im/infra-role-geth.git
-  version: c3b51f0799061cd3b0e6d4f1db1182c00d71e944
+  version: e85230e6d79b8ed757e5cb8fa5aed808f31eb8c1
   scm: git
 
 - name: infra-role-geth-exporter
   src: git+git@github.com:status-im/infra-role-geth-exporter.git
-  version: b187f16ad9e3dcf1e3024c6189994b71f26f5fde
+  version: 30e6a08e9b2badffbd32472fff640aefef26fd37
   scm: git
 
 - name: swap-file
