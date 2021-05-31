@@ -32,6 +32,7 @@
 - name: 'Stop container: {{ ipfs_cluster_cont_name }}'
   docker_container:
     name: '{{ ipfs_cluster_cont_name }}'
+    image: '{{ ipfs_cluster_cont_image }}'
     state: 'stopped'
 
 - name: Generate init config with peers
