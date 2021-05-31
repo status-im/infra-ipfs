@@ -26,6 +26,12 @@ ipfs_config:
 
 Read the [USAGE](./USAGE.md) file.
 
+# Known Issues
+
+Currently the Docker image does not support automatically running migrations, and those have to be performed manually by building and using the [official migration tool](https://github.com/ipfs/fs-repo-migrations).
+
+For more details see the issue: https://github.com/ipfs/fs-repo-migrations/issues/133
+
 # Links
 
 * https://docs.ipfs.io/introduction/overview/

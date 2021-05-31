@@ -1,6 +1,6 @@
 ---
 # ipfs specific settings
-ipfs_cont_tag: 'v0.5.1'
+ipfs_cont_tag: 'v0.8.0'
 ipfs_cont_image: 'ipfs/go-ipfs:{{ ipfs_cont_tag }}'
 ipfs_cont_name: 'ipfs-service'
 ipfs_cont_vol: '/docker/{{ ipfs_cont_name }}'

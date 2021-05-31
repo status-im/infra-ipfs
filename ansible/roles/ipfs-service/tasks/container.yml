@@ -8,6 +8,8 @@
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
+    # WARNING: Avoid miration bugs. Run migrations manually.
+    command: daemon --migrate=false
     env:
       # https://github.com/ipfs/go-ipfs/blob/master/docs/config.md
       IPFS_PROFILE: server
