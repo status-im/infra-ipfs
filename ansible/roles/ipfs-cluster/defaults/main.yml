@@ -9,7 +9,7 @@ ipfs_cluster_service_port: 5001
 ipfs_cluster_service_addr: '/dns4/{{ ipfs_cluster_service_cont | mandatory }}/tcp/{{ ipfs_cluster_service_port }}'
 
 # cluster specific settings
-ipfs_cluster_cont_tag: 'v0.13.0'
+ipfs_cluster_cont_tag: 'v0.13.3'
 ipfs_cluster_cont_image: 'ipfs/ipfs-cluster:{{ ipfs_cluster_cont_tag }}'
 ipfs_cluster_cont_name: 'ipfs-cluster'
 ipfs_cluster_cont_vol: '/docker/{{ ipfs_cluster_cont_name }}'
@@ -21,6 +21,8 @@ ipfs_cluster_admin_port: 5001
 # Cluster REST API
 ipfs_cluster_rest_addr: '0.0.0.0'
 ipfs_cluster_rest_port: 9094
+ipfs_cluster_allowed_origins: '*'
+ipfs_cluster_allowed_methods: '["GET", "POST"]'
 # port for cluster peer election viar raft
 ipfs_cluster_raft_port: 9096
 # WARNING: this port should never be entirely public
