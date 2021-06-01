@@ -1,0 +1,26 @@
+---
+- name: Get data centers
+  uri:
+    url: '{{ consul_catalog_url }}/datacenters'
+    return_content: true
+  register: data_centers
+
+- name: Discover IPFS services
+  uri:
+    url: '{{ consul_catalog_url }}/service/{{ consul_service_name }}?dc={{ item }}'
+    return_content: true
+  register: ipfs_services_dcs
+  with_items: '{{ data_centers.json }}'
+
+- name: Combine data centers into one list
+  set_fact:
+    ipfs_services: '{{ ipfs_services_dcs.results | sum(attribute="json", start=[]) }}'
+
+- name: Extract RCP addresses
+  set_fact:
+    ipfs_peers_rpc: |
+      {{ ipfs_services 
+      | map(attribute="ServiceMeta")
+      | rejectattr("ipfs_peer_id", "eq", ipfs_peer_id)
+      | map(attribute="ipfs_peer_rpc")
+      | list }}

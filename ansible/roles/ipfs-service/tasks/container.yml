@@ -7,11 +7,19 @@
     value: '2500000'
     sysctl_set: true
 
+- name: Create container directory
+  file:
+    path: '{{ ipfs_cont_vol }}'
+    owner: '{{ ipfs_host_uid }}'
+    group: 'docker'
+    state: 'directory'
+    mode: 0775
+
 - name: Create compose file
   template:
     src: 'docker-compose.yml.j2'
     dest: '{{ ipfs_compose_path }}'
-    owner: 'dockremap'
+    owner: '{{ ipfs_host_uid }}'
     group: 'docker'
     mode: 0640
 

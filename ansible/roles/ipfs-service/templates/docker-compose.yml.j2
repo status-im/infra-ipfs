@@ -1,7 +1,7 @@
 ---
 version: '3.7'
 services:
-  app:
+  node:
     container_name: '{{ ipfs_cont_name }}'
     image: '{{ ipfs_cont_image }}'
     user: 'root'
@@ -14,7 +14,7 @@ services:
       IPFS_LOGGING: '{{ ipfs_log_level }}'
       IPFS_LOGGING_FMT: 'nocolor'
     volumes:
-      - '{{ ipfs_cont_vol }}/data:/data/ipfs'
+      - '{{ ipfs_cont_vol }}:/data/ipfs'
     ports:
       - '{{ ipfs_swarm_port }}:{{ ipfs_swarm_port }}/tcp'
       - '{{ ipfs_gateway_port }}:{{ ipfs_gateway_port }}/tcp'

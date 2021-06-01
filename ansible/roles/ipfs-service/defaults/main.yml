@@ -1,13 +1,15 @@
 ---
-ipfs_service_name: 'ipfs-service'
+ipfs_service_name: 'ipfs'
 ipfs_service_path: '/docker/{{ ipfs_service_name }}'
-ipfs_compose_path: '{{ ipfs_service_path }}/docker-compose.yml'
+ipfs_compose_path: '{{ ipfs_service_path }}/docker-compose.node.yml'
 
 # ipfs specific settings
 ipfs_cont_tag: 'v0.8.0'
 ipfs_cont_image: 'ipfs/go-ipfs:{{ ipfs_cont_tag }}'
-ipfs_cont_name: '{{ ipfs_service_name }}'
-ipfs_cont_vol: '/docker/{{ ipfs_cont_name }}'
+ipfs_cont_name: '{{ ipfs_service_name }}-node'
+ipfs_cont_vol: '{{ ipfs_service_path }}/node'
+ipfs_cont_uid: 1000
+ipfs_host_uid: '{{ 100000 + ipfs_cluster_cont_uid | int }}'
 
 # WARNING: this port should never be entirely public
 ipfs_admin_port: 5001

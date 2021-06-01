@@ -2,7 +2,7 @@
 
 This role configures an [IPFS Cluster](https://cluster.ipfs.io/).
 
-To run it we use the [ipfs-cluster](https://hub.docker.com/r/ipfs/ipfs-cluster/) container.
+To run it we use the [ipfs-cluster](https://hub.docker.com/r/ipfs/ipfs-cluster/) container using [Docker Compose](https://docs.docker.com/compose/).
 
 See [the documentation](https://cluster.ipfs.io/documentation/) for more details.
 

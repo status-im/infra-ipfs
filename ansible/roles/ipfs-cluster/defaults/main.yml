@@ -1,21 +1,29 @@
 ---
+ipfs_cluster_service_name: 'ipfs'
+ipfs_cluster_service_path: '/docker/{{ ipfs_cluster_service_name }}'
+ipfs_cluster_compose_path: '{{ ipfs_cluster_service_path }}/docker-compose.cluster.yml'
+
 # needs to be the same for all cluster members
 ipfs_cluster_secret: ~
-# name of container to connect to
-ipfs_cluster_service_cont: ~
-ipfs_cluster_service_port: 5001
 
-# address used to link ipfs-cluster with ipfs service
-ipfs_cluster_service_addr: '/dns4/{{ ipfs_cluster_service_cont | mandatory }}/tcp/{{ ipfs_cluster_service_port }}'
+# Connection to IPFS node
+ipfs_cluster_node_addr: 'localhost'
+ipfs_cluster_node_port: 5001
+# MultiAddr used to link ipfs-cluster with ipfs service.
+ipfs_cluster_service_addr: '/dns4/{{ ipfs_cluster_node_addr }}/tcp/{{ ipfs_cluster_node_port }}'
 
 # cluster specific settings
 ipfs_cluster_cont_tag: 'v0.13.3'
 ipfs_cluster_cont_image: 'ipfs/ipfs-cluster:{{ ipfs_cluster_cont_tag }}'
-ipfs_cluster_cont_name: 'ipfs-cluster'
-ipfs_cluster_cont_vol: '/docker/{{ ipfs_cluster_cont_name }}'
+ipfs_cluster_cont_name: '{{ ipfs_cluster_service_name }}-cluster'
+ipfs_cluster_cont_vol: '{{ ipfs_cluster_service_path }}/cluster'
 ipfs_cluster_cont_uid: 1000
 ipfs_cluster_host_uid: '{{ 100000 + ipfs_cluster_cont_uid | int }}'
 
+# JSON file with cluster peer public and private key.
+ipfs_cluster_identity_file: '{{ ipfs_cluster_cont_vol }}/data/identity.json'
+# How peer will be visible in the cluster.
+ipfs_cluster_peer_name: '{{ hostname }}'
 # Cluster Admin API
 ipfs_cluster_admin_port: 5001
 # Cluster REST API
@@ -33,11 +41,11 @@ ipfs_cluster_metrics_port: 9097
 # levels: critical, error, warning, info, debug
 ipfs_cluster_log_level: 'warning'
 
-# generic container settings
-cont_state: started
-cont_recreate: false
-cont_restart: false
-
 # Consul query variables
 consul_catalog_url: 'http://localhost:8500/v1/catalog'
 consul_service_name: '{{ ipfs_cluster_cont_name }}'
+
+# general container management
+compose_recreate: 'smart'
+compose_state: 'present'
+compose_restart: false

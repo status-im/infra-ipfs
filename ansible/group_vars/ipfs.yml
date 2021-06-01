@@ -6,9 +6,15 @@ origin_certs:
     key: '{{lookup("bitwarden", "Cloudflare/status.im", file="origin.key")}}'
     default: true
 
+
+# IPFS Service
+ipfs_service_name: 'ipfs'
+
+# IPFS Cluster
 ipfs_cluster_secret:  '{{lookup("bitwarden", "ipfs-cluster", field="secret")}}'
-ipfs_cluster_service_cont: '{{ ipfs_cont_name }}'
-ipfs_cluster_service_port: '{{ ipfs_admin_port }}'
+# Connection to IPFS node
+ipfs_cluster_node_addr: 'node'
+ipfs_cluster_node_port: '{{ ipfs_admin_port }}'
 
 # Proxy
 ipfs_proxy_domain: '{{ env }}.status.im'

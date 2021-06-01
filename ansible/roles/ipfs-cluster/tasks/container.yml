@@ -1,24 +1,34 @@
 ---
-- name: 'Start container: {{ ipfs_cluster_cont_name }}'
-  docker_container:
-    name: '{{ ipfs_cluster_cont_name }}'
-    image: '{{ ipfs_cluster_cont_image }}'
+- name: Create container directory
+  file:
+    path: '{{ ipfs_cluster_cont_vol }}'
+    owner: '{{ ipfs_cluster_host_uid }}'
+    group: docker 
+    recurse: true
+    state: directory
+
+- name: Create compose file
+  template:
+    src: 'docker-compose.yml.j2'
+    dest: '{{ ipfs_cluster_compose_path }}'
+    owner: 'dockremap'
+    group: 'docker'
+    mode: 0640
+
+# Take into account additional docker-compose.yml files.
+- name: Find all Docker Compose files
+  find:
+    paths: '{{ ipfs_cluster_service_path }}'
+    patterns: 'docker-compose*.yml'
+    recurse: false
+  register: ipfs_all_compose
+
+- name: Create containers
+  docker_compose:
+    project_src: '{{ ipfs_cluster_service_path }}'
+    files: '{{ ipfs_all_compose.files | map(attribute="path") | list }}'
+    state: '{{ compose_state }}'
+    restarted: '{{ compose_restart }}'
+    recreate: '{{ compose_recreate | default("smart") }}'
     pull: true
-    restart_policy: always
-    state: '{{ cont_state }}'
-    recreate: '{{ cont_recreate }}'
-    restart: '{{ ipfs_peerstore.changed | default(cont_restart) }}'
-    links:
-      '{{ ipfs_cluster_service_cont }}:{{ ipfs_cluster_service_cont }}'
-    env:
-      IPFS_LOGGING_FMT: 'nocolor'
-      IPFS_CLUSTER_PATH: '/data/ipfs-cluster'
-    command: daemon --upgrade
-    ports:
-      - '127.0.0.1:5002:{{ ipfs_cluster_admin_port }}/tcp'
-      - '{{ ipfs_cluster_rest_port }}:{{ ipfs_cluster_rest_port }}/tcp'
-      - '{{ ipfs_cluster_raft_port }}:{{ ipfs_cluster_raft_port }}/tcp'
-      - '{{ ipfs_cluster_proxy_port }}:{{ ipfs_cluster_proxy_port }}/tcp'
-      - '{{ ipfs_cluster_metrics_port }}:{{ ipfs_cluster_metrics_port }}/tcp'
-    volumes:
-      - '{{ ipfs_cluster_cont_vol }}/data:/data/ipfs-cluster'
+    build: false

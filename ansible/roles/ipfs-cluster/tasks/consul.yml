@@ -15,9 +15,9 @@
 - name: Create Consul service definition
   include_role: name=consul-service
   vars:
-    consul_config_name: '{{ consul_service_name }}'
+    consul_config_name: '{{ ipfs_cluster_cont_name }}'
     consul_services:
-      - name: '{{ consul_service_name }}'
+      - name: '{{ ipfs_cluster_cont_name }}'
         tags: ['ipfs', 'cluster']
         port: '{{ ipfs_cluster_rest_port }}'
         address: '{{ ansible_host }}'
@@ -30,7 +30,7 @@
             type: http
             http: 'http://localhost:{{ ipfs_cluster_rest_port }}/id'
 
-      - name: '{{ consul_service_name }}-metrics'
+      - name: '{{ ipfs_cluster_cont_name }}-metrics'
         tags: ['ipfs', 'metrics']
         port: '{{ ipfs_cluster_metrics_port }}'
         address: '{{ ansible_local.wireguard.vpn_ip }}'
@@ -38,7 +38,7 @@
           - id: '{{ ipfs_cluster_cont_name }}-status'
             name: IPFS Cluster Metrics Healthcheck
             type: http
-            http: 'http://localhost:{{ ipfs_cluster_metrics_port }}/id'
+            http: 'http://localhost:{{ ipfs_cluster_metrics_port }}/debug/pprof/symbol'
 
 - name: Reload consul
   command: 'consul reload'
