@@ -1,8 +1,12 @@
 ---
+ipfs_service_name: 'ipfs-service'
+ipfs_service_path: '/docker/{{ ipfs_service_name }}'
+ipfs_compose_path: '{{ ipfs_service_path }}/docker-compose.yml'
+
 # ipfs specific settings
 ipfs_cont_tag: 'v0.8.0'
 ipfs_cont_image: 'ipfs/go-ipfs:{{ ipfs_cont_tag }}'
-ipfs_cont_name: 'ipfs-service'
+ipfs_cont_name: '{{ ipfs_service_name }}'
 ipfs_cont_vol: '/docker/{{ ipfs_cont_name }}'
 
 # WARNING: this port should never be entirely public
@@ -21,7 +25,7 @@ ipfs_max_storage: '10GB'
 # config settings to adjust after container start
 ipfs_config: {}
 
-# generic container settings
-cont_state: started
-cont_recreate: false
-cont_restart: false
+# general container management
+compose_recreate: 'smart'
+compose_state: 'present'
+compose_restart: false

@@ -1,0 +1,22 @@
+---
+version: '3.7'
+services:
+  app:
+    container_name: '{{ ipfs_cont_name }}'
+    image: '{{ ipfs_cont_image }}'
+    user: 'root'
+    restart: 'always'
+    # WARNING: Avoid miration bugs. Run migrations manually.
+    command: daemon --migrate=false
+    environment:
+      # https://github.com/ipfs/go-ipfs/blob/master/docs/config.md
+      IPFS_PROFILE: server
+      IPFS_LOGGING: '{{ ipfs_log_level }}'
+      IPFS_LOGGING_FMT: 'nocolor'
+    volumes:
+      - '{{ ipfs_cont_vol }}/data:/data/ipfs'
+    ports:
+      - '{{ ipfs_swarm_port }}:{{ ipfs_swarm_port }}/tcp'
+      - '{{ ipfs_gateway_port }}:{{ ipfs_gateway_port }}/tcp'
+      # Should never be public
+      - '127.0.0.1:{{ ipfs_admin_port }}:{{ ipfs_admin_port }}/tcp'

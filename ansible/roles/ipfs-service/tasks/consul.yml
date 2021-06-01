@@ -2,14 +2,14 @@
 - name: Create Consul service definition
   include_role: name=consul-service
   vars:
-    consul_config_name: '{{ ipfs_cont_name }}'
+    consul_config_name: '{{ ipfs_service_name }}'
     consul_services:
-      - name: '{{ ipfs_cont_name }}'
+      - name: '{{ ipfs_service_name  }}'
         tags: ['ipfs', 'service']
         port: '{{ ipfs_admin_port }}'
         address: '{{ ansible_host }}'
         checks:
-          - id: '{{ ipfs_cluster_cont_name }}-status'
+          - id: '{{ ipfs_service_name  }}-status'
             name: IPFS Healthcheck
             type: http
             method: POST

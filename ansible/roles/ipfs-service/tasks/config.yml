@@ -1,4 +1,10 @@
 ---
+- name: Wait for Admin port to be available
+  wait_for:
+    port: '{{ ipfs_admin_port }}'
+    delay: 5
+  when: ipfs_container.changed
+
 - name: Configure IPFS MaxStorage
   command: |
     docker exec {{ ipfs_cont_name }}
@@ -13,10 +19,3 @@
       '{{ item.key }}'
       '{{ item.value | to_json }}'
   with_dict: '{{ ipfs_config }}'
-  register: ipfs_config_calls
-
-- name: Restart docker container
-  docker_container:
-    name: '{{ ipfs_cont_name }}'
-    restart: true
-  when: ipfs_config_calls.changed
