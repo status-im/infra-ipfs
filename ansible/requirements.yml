@@ -6,7 +6,7 @@
 
 - name: infra-role-bootstrap
   src: git@github.com:status-im/infra-role-bootstrap.git
-  version: c9bdc2ba10127cbcde8c0d66e9120bbee81e7e99
+  version: 00bf675dfe0048321fcbade925a95e23f6212b87
   scm: git
 
 - name: open-ports

@@ -1,9 +1,9 @@
-.envrc
 .terraform/
 .terraform.lock.hcl
-terraform.tfstate.d/
 *.tfstate
+*.tfstate.d/
 *.tfstate.backup
 *.retry
 
 ansible/files/*
+__pycache__
