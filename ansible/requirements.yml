@@ -6,7 +6,7 @@
 
 - name: infra-role-bootstrap
   src: git@github.com:status-im/infra-role-bootstrap.git
-  version: 00bf675dfe0048321fcbade925a95e23f6212b87
+  version: c1f535e4b2851f08b1013bd57ab42d0c1e31e3b2
   scm: git
 
 - name: open-ports
@@ -16,12 +16,12 @@
 
 - name: consul-service
   src: git@github.com:status-im/infra-role-consul-service.git
-  version: b1d5ad5caa7d7a036fd175292fa497175bb7c54c
+  version: 87f4498f90f0cbb66a1ddb425e8953b04ced1891
   scm: git
 
 - name: systemd-timer
   src: git@github.com:status-im/infra-role-systemd-timer.git
-  version: b4ef4557682ff5cf1e7da841cbfb195992589f60
+  version: 5eafd38e4374f56a3439232b72ec077d569e0f5c
   scm: git
 
 - name: nginx-metrics
@@ -31,11 +31,11 @@
 
 - name: infra-role-geth
   src: git@github.com:status-im/infra-role-geth.git
-  version: e85230e6d79b8ed757e5cb8fa5aed808f31eb8c1
+  version: 7b27e0f75aac29800c6d1a51a5f38ae7d2390aab
   scm: git
 
 - name: infra-role-geth-exporter
-  src: git+git@github.com:status-im/infra-role-geth-exporter.git
+  src: git@github.com:status-im/infra-role-geth-exporter.git
   version: 30e6a08e9b2badffbd32472fff640aefef26fd37
   scm: git
 
